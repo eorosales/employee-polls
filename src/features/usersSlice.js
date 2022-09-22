@@ -33,8 +33,7 @@ const usersSlice = createSlice({
 export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
   try {
     const response = await DataAPI._getUsers();
-    const responseValues = Object.values(response);
-    return responseValues;
+    return response;
   } catch (error) {
     return error.message;
   }

@@ -14,6 +14,9 @@ const questionsSlice = createSlice({
     getQuestionsSuccess: (state, action) => {
       console.log("test");
     },
+    addQuestion: (state, action) => {
+      console.log(action.payload);
+    },
   },
   extraReducers(builder) {
     builder
@@ -33,15 +36,15 @@ export const fetchQuestions = createAsyncThunk(
   async () => {
     try {
       const response = await DataAPI._getQuestions();
-      const responseValues = Object.values(response);
-      return responseValues;
+      return response;
     } catch (error) {
       return error.message;
     }
   }
 );
 
-export const { getQuestions, getQuestionsSuccess } = questionsSlice.actions;
+export const { getQuestions, getQuestionsSuccess, addQuestion } =
+  questionsSlice.actions;
 
 export const questionsSelector = (state) => state.questions;
 

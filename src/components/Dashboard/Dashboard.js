@@ -1,14 +1,19 @@
 // Requires AUTHED_USER and QUESTIONS from store
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { getAuthedUser } from "../../features/authedUserSlice";
+import Question from "../Question/Question";
 import {
   fetchQuestions,
   questionsSelector,
 } from "../../features/questionsSlice";
+import "./dashboard.css";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
   const { questions, status } = useSelector(questionsSelector);
+  const [answeredQuestions, setAnsweredQuestions] = useState();
+  const authedUser = useSelector(getAuthedUser);
 
   useEffect(() => {
     if (status === "idle") {
@@ -16,19 +21,38 @@ const Dashboard = () => {
     }
   }, [status, dispatch]);
 
-  const renderQuestions = () => {
-    return questions.map((question) => {
-      return (
-        <div key={question.id}>
-          <h1>Questions</h1>
-          <p>{question.optionOne.text}</p>
-          <p>{question.optionTwo.text}</p>
-        </div>
-      );
-    });
-  };
+  // const handleQuestions = () => {
+  //   for (const property in authedUser.answers) {
+  //     let questionId = property;
+  //     let answer = authedUser.answers[property];
 
-  return <div>{renderQuestions()}</div>;
+  //     questions.forEach((question) => {
+  //       const match = question.id === questionId;
+  //       if (match) {
+  //         console.log(question);
+  //       }
+  //     });
+  //   }
+  // };
+
+  const questionsId = Object.values(questions).map((question) => question.id);
+
+  return (
+    <div className='dashboard'>
+      <h2>Questions</h2>
+      {status !== "success" ? (
+        <p>Loading Questions</p>
+      ) : (
+        <div className='dashboard__questions'>
+          {questionsId.map((question) => (
+            <li key={question}>
+              <Question id={question} />
+            </li>
+          ))}
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default Dashboard;

@@ -1,0 +1,29 @@
+header.header {
+  width: 100vw;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  padding: 1em 1em;
+  font-family: "Fira Sans", sans-serif;
+}
+
+header.header nav.nav {
+  display: flex;
+  justify-content: space-around;
+  width: 240px;
+}
+
+header.header nav.nav .nav-link {
+  text-decoration: none;
+  line-height: 1.5rem;
+  color: #000;
+}
+
+header.header .active-user {
+  display: inline-block;
+  line-height: 1rem;
+}
+
+header.header .active-user > * {
+  margin: 0 1rem;
+}

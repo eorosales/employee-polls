@@ -1,3 +1,11 @@
+# Summary
+
+- Every employee can access the application and create a poll with two proposed solutions.
+- Employees can then vote on these solutions and see which solutions have the most votes.
+- A dashboard that lists every employee ordered by the number of polls they've created and answered.
+- Process: "Would you rather?" [option A] or [option B ] (both or neither is not possible)
+- Users can answer polls, see which poll they haven't answered, see how other people have voted, post polls, and see ranking of users on the leaderboard.
+
 ## Views
 
 ### Login

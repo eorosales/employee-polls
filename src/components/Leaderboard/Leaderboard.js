@@ -12,7 +12,7 @@ const Leaderboard = () => {
     }
   }, [status, dispatch]);
 
-  return <div></div>;
+  return <div>{users}</div>;
 };
 
 export default Leaderboard;
