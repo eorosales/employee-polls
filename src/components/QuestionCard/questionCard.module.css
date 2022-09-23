@@ -1,0 +1,22 @@
+.questionCard {
+  padding: 2em;
+  border-radius: 0.8em;
+  box-shadow: 1px 1px 2px 0px;
+}
+
+/* .questionCard:hover {
+  box-shadow: none;
+  background-color: #ddd;
+} */
+
+.questionCard input {
+  border: none;
+  background: none;
+  color: green;
+  padding: 0;
+}
+
+.questionCard input:hover {
+  font-weight: 700;
+  cursor: pointer;
+}

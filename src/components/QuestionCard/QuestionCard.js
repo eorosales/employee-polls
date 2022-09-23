@@ -1,26 +1,31 @@
 import React from "react";
-import "./questionCard.css";
+import styles from "./questionCard.module.css";
 
-const QuestionCard = (props) => {
-  const { id, timestamp, author } = props.question;
-
-  const date = new Date(timestamp);
-
+const QuestionCard = ({ question }) => {
+  const { author, timestamp } = question;
   const formattedDate = () => {
-    return `${date.getMonth()}/${date.getDay()}/${date.getUTCFullYear()}`;
-  };
-
-  const formattedMinutes = () => {
-    return `${date.getMinutes()}`.padStart(2, "0");
+    const created = new Date(timestamp);
+    const month = created.toLocaleDateString("en-us", { month: "long" });
+    const day = created.getDate();
+    const year = created.getFullYear();
+    const hours = created.getHours();
+    const mins =
+      created.getMinutes() < 10
+        ? `${created.getMinutes()}`.padStart(2, `0`)
+        : created.getMinutes();
+    return {
+      date: `${month} ${day}, ${year}`,
+      time: `${hours}:${mins}`,
+    };
   };
 
   return (
-    <section className='question-card'>
-      <span className='question-card__author'>{author}</span>
-      <span className='question-card__date'>
-        {`${formattedDate()} | ${date.getUTCHours()}:${formattedMinutes()}`}
+    <section className={styles.questionCard}>
+      <h3>{author}</h3>
+      <span>
+        {formattedDate().date} | {formattedDate().time}
       </span>
-      <button>Show Details</button>
+      <input type='button' value='Show Details' />
     </section>
   );
 };

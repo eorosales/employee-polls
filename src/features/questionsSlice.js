@@ -3,7 +3,7 @@ import * as DataAPI from "../_DATA";
 
 const initialState = {
   questions: [],
-  status: "idle",
+  questionsStatus: "idle",
 };
 
 const questionsSlice = createSlice({
@@ -21,10 +21,10 @@ const questionsSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchQuestions.pending, (state) => {
-        state.status = "loading";
+        state.questionStatus = "loading";
       })
       .addCase(fetchQuestions.fulfilled, (state, { payload }) => {
-        state.status = "success";
+        state.questionsStatus = "success";
         state.questions = payload;
       });
   },

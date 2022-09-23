@@ -1,22 +1,17 @@
 // Requires AUTHED_USER and QUESTIONS from store
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { getAuthedUser } from "../../features/authedUserSlice";
-import Question from "../Question/Question";
-import {
-  fetchQuestions,
-  questionsSelector,
-} from "../../features/questionsSlice";
-import "./dashboard.css";
-import { getUsers, usersSelector } from "../../features/usersSlice";
+import { questionsSelector } from "../../features/questionsSlice";
+import { usersSelector } from "../../features/usersSlice";
+import QuestionCard from "../QuestionCard/QuestionCard";
+import styles from "./dashboard.module.css";
 
 const Dashboard = () => {
-  const dispatch = useDispatch();
   const authedUser = useSelector(getAuthedUser);
-  const { questions, status } = useSelector(questionsSelector);
+  const { questions, questionsStatus } = useSelector(questionsSelector);
   const { users, usersStatus } = useSelector(usersSelector);
 
-  const handleAnswers = () => {
+  const handleAnsweredQuestions = () => {
     if (usersStatus === "success") {
       return Object.keys(users).map((user) => {
         return (
@@ -24,7 +19,7 @@ const Dashboard = () => {
           Object.keys(users[user].answers).map((answerId) => {
             return (
               <li key={answerId}>
-                <Question question={questions[answerId]} />
+                <QuestionCard question={questions[answerId]} />
               </li>
             );
           })
@@ -33,17 +28,38 @@ const Dashboard = () => {
     }
   };
 
-  handleAnswers();
+  const handleUnansweredQuestions = () => {
+    if (usersStatus === "success" && questionsStatus === "success") {
+      const usersAnsweredQuestions = Object.keys(users[authedUser].answers);
+      const allQuestions = Object.keys(questions);
+
+      return allQuestions
+        .filter(
+          (question) => usersAnsweredQuestions.indexOf(question) === -1 // -1 means 'no match found'
+        )
+        .map((unanswered) => {
+          return (
+            <li key={unanswered}>
+              <QuestionCard question={questions[unanswered]} />
+            </li>
+          );
+        });
+    }
+  };
 
   return (
-    <div className='dashboard'>
+    <div>
       <h2>Questions</h2>
-      {status !== "success" ? (
+      {questionsStatus !== "success" ? (
         <p>Loading Questions</p>
       ) : (
-        <div className='dashboard__questions'>
-          <h3>Done</h3>
-          <ul>{handleAnswers()}</ul>
+        <div>
+          <h3>Answered Questions</h3>
+          <ul className={styles.questionsList}>{handleAnsweredQuestions()}</ul>
+          <h3>New Questions</h3>
+          <ul className={styles.questionsList}>
+            {handleUnansweredQuestions()}
+          </ul>
         </div>
       )}
     </div>
