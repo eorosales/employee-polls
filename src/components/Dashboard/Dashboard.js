@@ -8,34 +8,32 @@ import {
   questionsSelector,
 } from "../../features/questionsSlice";
 import "./dashboard.css";
+import { getUsers, usersSelector } from "../../features/usersSlice";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const { questions, status } = useSelector(questionsSelector);
-  const [answeredQuestions, setAnsweredQuestions] = useState();
   const authedUser = useSelector(getAuthedUser);
+  const { questions, status } = useSelector(questionsSelector);
+  const { users, usersStatus } = useSelector(usersSelector);
 
-  useEffect(() => {
-    if (status === "idle") {
-      dispatch(fetchQuestions());
+  const handleAnswers = () => {
+    if (usersStatus === "success") {
+      return Object.keys(users).map((user) => {
+        return (
+          user === authedUser &&
+          Object.keys(users[user].answers).map((answerId) => {
+            return (
+              <li key={answerId}>
+                <Question question={questions[answerId]} />
+              </li>
+            );
+          })
+        );
+      });
     }
-  }, [status, dispatch]);
+  };
 
-  // const handleQuestions = () => {
-  //   for (const property in authedUser.answers) {
-  //     let questionId = property;
-  //     let answer = authedUser.answers[property];
-
-  //     questions.forEach((question) => {
-  //       const match = question.id === questionId;
-  //       if (match) {
-  //         console.log(question);
-  //       }
-  //     });
-  //   }
-  // };
-
-  const questionsId = Object.values(questions).map((question) => question.id);
+  handleAnswers();
 
   return (
     <div className='dashboard'>
@@ -44,11 +42,8 @@ const Dashboard = () => {
         <p>Loading Questions</p>
       ) : (
         <div className='dashboard__questions'>
-          {questionsId.map((question) => (
-            <li key={question}>
-              <Question id={question} />
-            </li>
-          ))}
+          <h3>Done</h3>
+          <ul>{handleAnswers()}</ul>
         </div>
       )}
     </div>

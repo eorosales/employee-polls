@@ -4,7 +4,7 @@ import * as DataAPI from "../_DATA";
 // INITIAL STATE
 const initialState = {
   users: [],
-  status: "idle",
+  usersStatus: "idle",
 };
 
 // USERS SLICE
@@ -20,10 +20,10 @@ const usersSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchUsers.pending, (state) => {
-        state.status = "loading";
+        state.usersStatus = "loading";
       })
       .addCase(fetchUsers.fulfilled, (state, { payload }) => {
-        state.status = "success";
+        state.usersStatus = "success";
         state.users = payload;
       });
   },
