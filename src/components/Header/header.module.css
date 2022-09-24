@@ -1,4 +1,4 @@
-/* header.header {
+header.header {
   width: 100vw;
   border-bottom: 1px solid #ccc;
   display: flex;
@@ -10,20 +10,26 @@
 header.header nav.nav {
   display: flex;
   justify-content: space-around;
-  width: 240px;
+  gap: 10px;
 }
 
-header.header nav.nav .nav-link {
+header.header nav.nav .navLink {
   text-decoration: none;
-  line-height: 1.5rem;
   color: #000;
+  padding: 0.2rem;
 }
 
-header.header .active-user {
+header.header nav.nav .navLink:hover {
+  border-bottom: 0.2em solid #000;
+  margin-top: 0;
+  padding-bottom: 0;
+}
+
+header.header .activeUser {
   display: inline-block;
   line-height: 1rem;
 }
 
-header.header .active-user > * {
+header.header .activeUser > * {
   margin: 0 1rem;
-} */
+}

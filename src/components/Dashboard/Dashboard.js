@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { getAuthedUser } from "../../features/authedUserSlice";
 import { questionsSelector } from "../../features/questionsSlice";
 import { usersSelector } from "../../features/usersSlice";
+import LoadingBar from "react-redux-loading-bar";
 import QuestionCard from "../QuestionCard/QuestionCard";
 import styles from "./dashboard.module.css";
 

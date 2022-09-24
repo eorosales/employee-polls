@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styles from "./questionCard.module.css";
 
 const QuestionCard = ({ question }) => {
-  const { author, timestamp } = question;
+  const { id, author, timestamp } = question;
   const formattedDate = () => {
     const created = new Date(timestamp);
     const month = created.toLocaleDateString("en-us", { month: "long" });
@@ -20,13 +21,14 @@ const QuestionCard = ({ question }) => {
   };
 
   return (
-    <section className={styles.questionCard}>
-      <h3>{author}</h3>
-      <span>
-        {formattedDate().date} | {formattedDate().time}
-      </span>
-      <input type='button' value='Show Details' />
-    </section>
+    <Link to={`/question/${id}`}>
+      <section className={styles.questionCard}>
+        <h3>{author}</h3>
+        <span>
+          {formattedDate().date} | {formattedDate().time}
+        </span>
+      </section>
+    </Link>
   );
 };
 

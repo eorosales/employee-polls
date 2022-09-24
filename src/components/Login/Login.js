@@ -35,6 +35,7 @@ const Login = () => {
     e.preventDefault();
 
     dispatch(setAuthedUser(selectedUser));
+
     navigate("/dashboard");
   };
 

@@ -1,36 +1,17 @@
 import { useSelector } from "react-redux";
-import { getAuthedUser } from "../../features/authedUserSlice";
 import { questionsSelector } from "../../features/questionsSlice";
-import { usersSelector } from "../../features/usersSlice";
-import * as DataAPI from "../../_DATA";
+import { useParams } from "react-router-dom";
 
-const Question = ({ question }) => {
-  const { id, author, timestamp, optionOne, optionTwo } = question;
-
-  const formattedDate = () => {
-    const created = new Date(timestamp);
-    const month = created.toLocaleDateString("en-us", { month: "long" });
-    const day = created.getDate();
-    const year = created.getFullYear();
-    const hours = created.getHours();
-    const mins =
-      created.getMinutes() < 10
-        ? `${created.getMinutes()}`.padStart(2, `0`)
-        : created.getMinutes();
-    return {
-      date: `${month} ${day}, ${year}`,
-      time: `${hours}:${mins}`,
-    };
-  };
+const Question = () => {
+  const { id } = useParams();
+  const questions = useSelector(questionsSelector);
+  const { author, timestamp, optionOne, optionTwo } = questions.questions[id];
 
   return (
     <div>
-      <div>Author: {author}</div>
-      <div>
-        {formattedDate().date} | {formattedDate().time}
-      </div>
-      <div>Option One: {optionOne.text}</div>
-      <div>Option Two: {optionTwo.text}</div>
+      <h3>{author}</h3>
+      <p>{optionOne.text}</p>
+      <p>{optionTwo.text}</p>
     </div>
   );
 };
