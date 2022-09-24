@@ -23,8 +23,8 @@ const QuestionCard = ({ question }) => {
   return (
     <Link to={`/question/${id}`}>
       <section className={styles.questionCard}>
-        <h3>{author}</h3>
-        <span>
+        <h3 className={styles.author}>{author}</h3>
+        <span className={styles.info}>
           {formattedDate().date} | {formattedDate().time}
         </span>
       </section>

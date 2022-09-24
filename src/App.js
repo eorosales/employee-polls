@@ -5,12 +5,12 @@ import { getAuthedUser, setAuthedUser } from "./features/authedUserSlice";
 import { fetchQuestions } from "./features/questionsSlice";
 import { fetchUsers } from "./features/usersSlice";
 import { Routes, Route } from "react-router-dom";
-import Dashboard from "./components/Dashboard/Dashboard";
+
 import Login from "./components/Login/Login";
+import Dashboard from "./components/Dashboard/Dashboard";
+import Leaderboard from "./components/Leaderboard/Leaderboard";
 import Question from "./components/Question/Question";
-// import Leaderboard from "./components/Leaderboard/Leaderboard";
-// import NewQuestion from "./components/NewQuestion/NewQuestion";
-import LoadingBar from "react-redux-loading-bar";
+import NewQuestion from "./components/NewQuestion/NewQuestion";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,7 +35,9 @@ function App() {
               element={AUTHED_USER_ID === "" ? <Login /> : <Dashboard />}
             />
             <Route path='/dashboard' element={<Dashboard />} />
+            <Route path='/leaderboard' element={<Leaderboard />} />
             <Route path='/question/:id' element={<Question />} />
+            <Route path='/new-question' element={<NewQuestion />} />
           </Routes>
         </Fragment>
       </div>

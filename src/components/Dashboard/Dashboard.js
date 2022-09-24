@@ -1,17 +1,25 @@
 // Requires AUTHED_USER and QUESTIONS from store
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { getAuthedUser } from "../../features/authedUserSlice";
 import { questionsSelector } from "../../features/questionsSlice";
 import { usersSelector } from "../../features/usersSlice";
-import LoadingBar from "react-redux-loading-bar";
+import LoadingBar, { showLoading, hideLoading } from "react-redux-loading-bar";
 import Layout from "../Layout/Layout";
 import QuestionCard from "../QuestionCard/QuestionCard";
 import styles from "./dashboard.module.css";
+import { useEffect } from "react";
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
   const authedUser = useSelector(getAuthedUser);
   const { questions, questionsStatus } = useSelector(questionsSelector);
   const { users, usersStatus } = useSelector(usersSelector);
+
+  useEffect(() => {
+    if (questionsStatus !== "success") {
+      dispatch(showLoading());
+    }
+  });
 
   const handleAnsweredQuestions = () => {
     if (usersStatus === "success") {
@@ -49,13 +57,11 @@ const Dashboard = () => {
 
   return (
     <Layout>
-      <h2>Questions</h2>
-      {questionsStatus !== "success" ? (
-        <div>
-          <LoadingBar />
-        </div>
+      {questionsStatus !== "success" && usersStatus !== "success" ? (
+        <LoadingBar />
       ) : (
-        <div>
+        <div className={styles.dashboard}>
+          <h2>Questions</h2>
           <h3>Answered Questions</h3>
           <ul className={styles.questionsList}>{handleAnsweredQuestions()}</ul>
           <h3>New Questions</h3>

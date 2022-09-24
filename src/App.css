@@ -72,8 +72,3 @@ select {
     scroll-behavior: auto !important;
   }
 }
-
-/* Custom Styles */
-body {
-  padding: 1em;
-}

@@ -3,7 +3,7 @@ header.header {
   border-bottom: 1px solid #ccc;
   display: flex;
   justify-content: space-between;
-  padding: 1em 1em;
+  padding: 1em;
   font-family: "Fira Sans", sans-serif;
 }
 
@@ -16,7 +16,6 @@ header.header nav.nav {
 header.header nav.nav .navLink {
   text-decoration: none;
   color: #000;
-  padding: 0.2rem;
 }
 
 header.header nav.nav .navLink:hover {
@@ -27,7 +26,6 @@ header.header nav.nav .navLink:hover {
 
 header.header .activeUser {
   display: inline-block;
-  line-height: 1rem;
 }
 
 header.header .activeUser > * {

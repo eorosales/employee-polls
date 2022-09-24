@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { questionsSelector } from "../../features/questionsSlice";
+import Layout from "../Layout/Layout";
 import { useParams } from "react-router-dom";
 
 const Question = () => {
@@ -8,11 +9,13 @@ const Question = () => {
   const { author, timestamp, optionOne, optionTwo } = questions.questions[id];
 
   return (
-    <div>
-      <h3>{author}</h3>
-      <p>{optionOne.text}</p>
-      <p>{optionTwo.text}</p>
-    </div>
+    <Layout>
+      <div>
+        <h3>{author}</h3>
+        <p>{optionOne.text}</p>
+        <p>{optionTwo.text}</p>
+      </div>
+    </Layout>
   );
 };
 
