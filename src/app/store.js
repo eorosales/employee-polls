@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import questionsReducer from "../features/questionsSlice";
 import usersReducer from "../features/usersSlice";
 import authedUserReducer from "../features/authedUserSlice";
+import { loadingBarReducer } from "react-redux-loading-bar";
 import {
   persistStore,
   persistReducer,
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   users: usersReducer,
   authedUser: authedUserReducer,
   questions: questionsReducer,
+  loadingBar: loadingBarReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

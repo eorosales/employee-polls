@@ -21,7 +21,7 @@ const questionsSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchQuestions.pending, (state) => {
-        state.questionStatus = "loading";
+        state.questionsStatus = "loading";
       })
       .addCase(fetchQuestions.fulfilled, (state, { payload }) => {
         state.questionsStatus = "success";

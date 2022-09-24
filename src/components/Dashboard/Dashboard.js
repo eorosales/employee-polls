@@ -4,6 +4,7 @@ import { getAuthedUser } from "../../features/authedUserSlice";
 import { questionsSelector } from "../../features/questionsSlice";
 import { usersSelector } from "../../features/usersSlice";
 import LoadingBar from "react-redux-loading-bar";
+import Layout from "../Layout/Layout";
 import QuestionCard from "../QuestionCard/QuestionCard";
 import styles from "./dashboard.module.css";
 
@@ -31,13 +32,11 @@ const Dashboard = () => {
 
   const handleUnansweredQuestions = () => {
     if (usersStatus === "success" && questionsStatus === "success") {
-      const usersAnsweredQuestions = Object.keys(users[authedUser].answers);
-      const allQuestions = Object.keys(questions);
-
-      return allQuestions
-        .filter(
-          (question) => usersAnsweredQuestions.indexOf(question) === -1 // -1 means 'no match found'
-        )
+      return Object.keys(questions)
+        .filter((question) => {
+          const usersAnsweredQuestions = Object.keys(users[authedUser].answers);
+          return usersAnsweredQuestions.indexOf(question) === -1; // -1 means 'no match found'
+        })
         .map((unanswered) => {
           return (
             <li key={unanswered}>
@@ -49,10 +48,12 @@ const Dashboard = () => {
   };
 
   return (
-    <div>
+    <Layout>
       <h2>Questions</h2>
       {questionsStatus !== "success" ? (
-        <p>Loading Questions</p>
+        <div>
+          <LoadingBar />
+        </div>
       ) : (
         <div>
           <h3>Answered Questions</h3>
@@ -63,7 +64,7 @@ const Dashboard = () => {
           </ul>
         </div>
       )}
-    </div>
+    </Layout>
   );
 };
 

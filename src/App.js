@@ -7,7 +7,6 @@ import { fetchUsers } from "./features/usersSlice";
 import { Routes, Route } from "react-router-dom";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Login from "./components/Login/Login";
-import Header from "./components/Header/Header";
 import Question from "./components/Question/Question";
 // import Leaderboard from "./components/Leaderboard/Leaderboard";
 // import NewQuestion from "./components/NewQuestion/NewQuestion";
@@ -33,7 +32,7 @@ function App() {
           <Routes>
             <Route
               path='/login'
-              element={AUTHED_USER_ID ? <Dashboard /> : <Login />}
+              element={AUTHED_USER_ID === "" ? <Login /> : <Dashboard />}
             />
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/question/:id' element={<Question />} />
