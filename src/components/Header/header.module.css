@@ -1,6 +1,7 @@
 header.header {
+  background-color: #1f261f;
   width: 100vw;
-  border-bottom: 1px solid #ccc;
+  color: #fff;
   display: flex;
   justify-content: space-between;
   padding: 1em;
@@ -15,11 +16,11 @@ header.header nav.nav {
 
 header.header nav.nav .navLink {
   text-decoration: none;
-  color: #000;
+  color: #fff;
 }
 
 header.header nav.nav .navLink:hover {
-  border-bottom: 0.2em solid #000;
+  border-bottom: 0.2em solid #f2b138;
   margin-top: 0;
   padding-bottom: 0;
 }
@@ -30,4 +31,18 @@ header.header .activeUser {
 
 header.header .activeUser > * {
   margin: 0 1rem;
+}
+
+.activeUser button {
+  border: none;
+  width: 7rem;
+  border-radius: 0.8rem;
+  padding: 2px 0;
+  background-color: #fff;
+  color: #1f261f;
+}
+
+.activeUser button:hover {
+  background-color: #f2b138;
+  cursor: pointer;
 }

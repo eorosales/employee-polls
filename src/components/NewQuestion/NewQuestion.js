@@ -1,34 +1,34 @@
 import React, { useState } from "react";
 import Layout from "../Layout/Layout";
 import { useDispatch, useSelector } from "react-redux";
-import { addQuestion } from "../../features/questionsSlice";
+import { saveNewQuestion } from "../../features/questionsSlice";
 import { getAuthedUser } from "../../features/authedUserSlice";
 
 const NewQuestion = () => {
   const dispatch = useDispatch();
   const authedUser = useSelector(getAuthedUser);
 
-  const [optionOne, setOptionOne] = useState("");
-  const [optionTwo, setOptionTwo] = useState("");
+  const [optionOneText, setOptionOneText] = useState("");
+  const [optionTwoText, setOptionTwoText] = useState("");
 
   const handleOptionOne = (e) => {
-    setOptionOne(e.target.value);
+    setOptionOneText(e.target.value);
   };
 
   const handleOptionTwo = (e) => {
-    setOptionTwo(e.target.value);
+    setOptionTwoText(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const newQuestion = {
-      optionOne,
-      optionTwo,
-      author: authedUser.id,
+      optionOneText,
+      optionTwoText,
+      author: authedUser,
     };
 
-    dispatch(addQuestion(newQuestion));
+    dispatch(saveNewQuestion(newQuestion));
   };
 
   return (

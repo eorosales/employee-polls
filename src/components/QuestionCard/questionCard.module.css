@@ -1,19 +1,25 @@
 a {
   text-decoration: none;
+  color: #1f261f;
 }
 
 .questionCard {
   padding: 2em;
   text-decoration: none;
-  color: #000;
+  background-color: #d9c0a3;
   border-radius: 0.8em;
-  box-shadow: 1px 1px 2px 0px;
+  box-shadow: 3px 3px 5px -1px;
 }
 
 .questionCard:hover {
   box-shadow: none;
+  position: relative;
+  top: 3px;
+  left: 3px;
   background-color: #ddd;
-  transition: background-color 0.3s ease-in-out;
+  background-color: #5e7358;
+  color: #fff;
+  transition: background-color 50ms ease-in-out;
 }
 
 .questionCard input {

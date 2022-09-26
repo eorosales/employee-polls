@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import * as DataAPI from "../_DATA";
 
 const initialState = {
@@ -9,15 +9,7 @@ const initialState = {
 const questionsSlice = createSlice({
   name: "questions",
   initialState,
-  reducers: {
-    getQuestions: (state) => state.questions,
-    getQuestionsSuccess: (state, action) => {
-      console.log("test");
-    },
-    addQuestion: (state, action) => {
-      console.log(action.payload);
-    },
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(fetchQuestions.pending, (state) => {
@@ -26,6 +18,11 @@ const questionsSlice = createSlice({
       .addCase(fetchQuestions.fulfilled, (state, { payload }) => {
         state.questionsStatus = "success";
         state.questions = payload;
+      })
+      .addCase(saveNewQuestion.fulfilled, (state, { payload }) => {
+        return Object.keys(state.questions)
+          .map((key) => state.questions[key])
+          .push(payload);
       });
   },
 });
@@ -43,8 +40,19 @@ export const fetchQuestions = createAsyncThunk(
   }
 );
 
-export const { getQuestions, getQuestionsSuccess, addQuestion } =
-  questionsSlice.actions;
+export const saveNewQuestion = createAsyncThunk(
+  "questions/saveNewQuestion",
+  async (question) => {
+    try {
+      const response = await DataAPI._saveQuestion(question);
+      return response;
+    } catch (error) {
+      return error.message;
+    }
+  }
+);
+
+export const { clearQuestions } = questionsSlice.actions;
 
 export const questionsSelector = (state) => state.questions;
 

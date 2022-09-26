@@ -1,6 +1,23 @@
 .dashboard {
-  width: 100vw;
+  width: 80vw;
   padding: 2em;
+  margin: 0 auto;
+  color: #fff;
+}
+
+.dashboard > section {
+  padding: 2em;
+  box-shadow: #1f261f 1px 1px 5px -1px;
+  border-radius: 0.8em;
+}
+
+.dashboard > section:first-of-type {
+  margin-bottom: 2em;
+}
+
+.dashboard h2 {
+  text-align: center;
+  font-size: 2.4rem;
 }
 
 .questionsList {

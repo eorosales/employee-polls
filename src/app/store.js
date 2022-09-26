@@ -15,29 +15,38 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-const persistConfig = {
-  key: "root",
-  version: 1,
-  storage,
-};
+// const persistConfig = {
+//   key: "root",
+//   version: 1,
+//   storage,
+// };
 
-const rootReducer = combineReducers({
-  users: usersReducer,
-  authedUser: authedUserReducer,
-  questions: questionsReducer,
-  loadingBar: loadingBarReducer,
-});
+// const rootReducer = combineReducers({
+//   users: usersReducer,
+//   authedUser: authedUserReducer,
+//   questions: questionsReducer,
+//   loadingBar: loadingBarReducer,
+// });
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+// const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+// export const store = configureStore({
+//   reducer: persistedReducer,
+//   middleware: (getDefaultMiddleware) =>
+//     getDefaultMiddleware({
+//       serializableCheck: {
+//         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+//       },
+//     }),
+// });
+
+// export const persistor = persistStore(store);
 
 export const store = configureStore({
-  reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }),
+  reducer: {
+    users: usersReducer,
+    authedUser: authedUserReducer,
+    questions: questionsReducer,
+    loadingBar: loadingBarReducer,
+  },
 });
-
-export const persistor = persistStore(store);

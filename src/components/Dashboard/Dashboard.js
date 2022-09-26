@@ -1,7 +1,10 @@
 // Requires AUTHED_USER and QUESTIONS from store
 import { useSelector, useDispatch } from "react-redux";
 import { getAuthedUser } from "../../features/authedUserSlice";
-import { questionsSelector } from "../../features/questionsSlice";
+import {
+  fetchQuestions,
+  questionsSelector,
+} from "../../features/questionsSlice";
 import { usersSelector } from "../../features/usersSlice";
 import LoadingBar, { showLoading, hideLoading } from "react-redux-loading-bar";
 import Layout from "../Layout/Layout";
@@ -16,13 +19,11 @@ const Dashboard = () => {
   const { users, usersStatus } = useSelector(usersSelector);
 
   useEffect(() => {
-    if (questionsStatus !== "success") {
-      dispatch(showLoading());
-    }
+    dispatch(fetchQuestions);
   });
 
   const handleAnsweredQuestions = () => {
-    if (usersStatus === "success") {
+    if (authedUser !== "") {
       return Object.keys(users).map((user) => {
         return (
           user === authedUser &&
@@ -62,12 +63,18 @@ const Dashboard = () => {
       ) : (
         <div className={styles.dashboard}>
           <h2>Questions</h2>
-          <h3>Answered Questions</h3>
-          <ul className={styles.questionsList}>{handleAnsweredQuestions()}</ul>
-          <h3>New Questions</h3>
-          <ul className={styles.questionsList}>
-            {handleUnansweredQuestions()}
-          </ul>
+          <section>
+            <h3>Answered Questions</h3>
+            <ul className={styles.questionsList}>
+              {handleAnsweredQuestions()}
+            </ul>
+          </section>
+          <section>
+            <h3>New Questions</h3>
+            <ul className={styles.questionsList}>
+              {handleUnansweredQuestions()}
+            </ul>
+          </section>
         </div>
       )}
     </Layout>
