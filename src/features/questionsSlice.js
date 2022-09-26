@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import * as DataAPI from "../_DATA";
 
 const initialState = {
-  questions: [],
+  questions: {},
   questionsStatus: "idle",
 };
 
@@ -20,9 +20,7 @@ const questionsSlice = createSlice({
         state.questions = payload;
       })
       .addCase(saveNewQuestion.fulfilled, (state, { payload }) => {
-        return Object.keys(state.questions)
-          .map((key) => state.questions[key])
-          .push(payload);
+        state.questions = { ...state.questions, [payload.id]: payload };
       });
   },
 });

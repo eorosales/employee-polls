@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchUsers, usersSelector } from "../../features/usersSlice";
+import { usersSelector } from "../../features/usersSlice";
 import { setAuthedUser } from "../../features/authedUserSlice";
 import "./login.css";
 
@@ -10,14 +10,8 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { users, status } = useSelector(usersSelector);
+  const { users } = useSelector(usersSelector);
   const [selectedUser, setSelectedUser] = useState();
-
-  useEffect(() => {
-    if (status === "idle") {
-      dispatch(fetchUsers());
-    }
-  }, [status, dispatch]);
 
   const usersList = () => {
     return Object.values(users).map((user) => {

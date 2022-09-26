@@ -148,7 +148,7 @@ export function _getQuestions() {
     setTimeout(() => resolve({ ...questions }), 1000);
   });
 }
-// Added 'export'
+
 function formatQuestion({ optionOneText, optionTwoText, author }) {
   return {
     id: generateUID(),

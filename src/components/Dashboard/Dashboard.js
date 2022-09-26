@@ -1,16 +1,13 @@
 // Requires AUTHED_USER and QUESTIONS from store
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAuthedUser } from "../../features/authedUserSlice";
-import {
-  fetchQuestions,
-  questionsSelector,
-} from "../../features/questionsSlice";
+import { questionsSelector } from "../../features/questionsSlice";
 import { usersSelector } from "../../features/usersSlice";
 import LoadingBar, { showLoading, hideLoading } from "react-redux-loading-bar";
 import Layout from "../Layout/Layout";
 import QuestionCard from "../QuestionCard/QuestionCard";
 import styles from "./dashboard.module.css";
-import { useEffect } from "react";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -19,11 +16,13 @@ const Dashboard = () => {
   const { users, usersStatus } = useSelector(usersSelector);
 
   useEffect(() => {
-    dispatch(fetchQuestions);
+    if (usersStatus !== "success" || usersStatus) {
+      dispatch(showLoading());
+    }
   });
 
   const handleAnsweredQuestions = () => {
-    if (authedUser !== "") {
+    if (usersStatus === "success" && authedUser !== "") {
       return Object.keys(users).map((user) => {
         return (
           user === authedUser &&

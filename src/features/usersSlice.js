@@ -3,7 +3,7 @@ import * as DataAPI from "../_DATA";
 
 // INITIAL STATE
 const initialState = {
-  users: [],
+  users: {},
   usersStatus: "idle",
 };
 
@@ -13,9 +13,6 @@ const usersSlice = createSlice({
   initialState,
   reducers: {
     getUsers: (state) => state.users,
-    getUsersSuccess: (state, action) => {
-      console.log("test");
-    },
   },
   extraReducers(builder) {
     builder
@@ -40,7 +37,7 @@ export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
 });
 
 // USERS SLICE Exports
-export const { getUsers, getUsersSuccess } = usersSlice.actions;
+export const { getUsers } = usersSlice.actions;
 
 export const usersSelector = (state) => state.users;
 

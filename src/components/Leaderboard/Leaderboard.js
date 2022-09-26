@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { questionsSelector } from "../../features/questionsSlice";
-import { fetchUsers, usersSelector } from "../../features/usersSlice";
+import { usersSelector } from "../../features/usersSlice";
 import Layout from "../Layout/Layout";
 
 const Leaderboard = () => {

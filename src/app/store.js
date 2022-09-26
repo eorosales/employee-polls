@@ -1,4 +1,8 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import {
+  combineReducers,
+  configureStore,
+  createListenerMiddleware,
+} from "@reduxjs/toolkit";
 import questionsReducer from "../features/questionsSlice";
 import usersReducer from "../features/usersSlice";
 import authedUserReducer from "../features/authedUserSlice";
