@@ -19,6 +19,6 @@ const authedUserSlice = createSlice({
 
 export const { setAuthedUser, logoutUser } = authedUserSlice.actions;
 
-export const getAuthedUser = (state) => state.authedUser.authedUser;
+export const authedUserSelector = (state) => state.authedUser;
 
 export default authedUserSlice.reducer;

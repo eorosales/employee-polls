@@ -2,7 +2,6 @@
   width: 80vw;
   padding: 2em;
   margin: 0 auto;
-  color: #fff;
 }
 
 .dashboard > section {
@@ -17,7 +16,7 @@
 
 .dashboard h2 {
   text-align: center;
-  font-size: 2.4rem;
+  font-size: 2rem;
   margin-bottom: 1em;
 }
 
@@ -31,6 +30,8 @@
   list-style-type: none;
   list-style: none;
   gap: 20px;
+  border: 1px solid #000;
+  border-radius: 15px;
 }
 
 .questionsList li {

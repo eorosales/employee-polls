@@ -1,22 +1,59 @@
-import { useSelector } from "react-redux";
-import { questionsSelector } from "../../features/questionsSlice";
-import Layout from "../Layout/Layout";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { authedUserSelector } from "../../slices/authedUserSlice";
+import {
+  questionsSelector,
+  saveQuestionAnswer,
+} from "../../slices/questionsSlice";
+import styles from "./question.module.css";
 
 const Question = () => {
+  const dispatch = useDispatch();
   const { id } = useParams();
-  const questions = useSelector(questionsSelector);
-  const { author, timestamp, optionOne, optionTwo } = questions.questions[id];
+  const { questions, questionsStatus } = useSelector(questionsSelector);
+  const { authedUser } = useSelector(authedUserSelector);
 
-  return (
-    <Layout>
-      <div>
-        <h3>{author}</h3>
-        <p>{optionOne.text}</p>
-        <p>{optionTwo.text}</p>
-      </div>
-    </Layout>
-  );
+  const [selectedOption, setSelectedOption] = useState("");
+
+  const handleSelection = (e) => {
+    e.preventDefault();
+    setSelectedOption(e.target.name);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const answer = {
+      authedUser,
+      qid: id,
+      answer: selectedOption,
+    };
+    // dispatch(saveQuestionAnswer(answer));
+  };
+
+  const handleQuestion = () => {
+    if (questionsStatus === "success") {
+      const { author, timestamp, optionOne, optionTwo } = questions[id];
+      return (
+        <div className={styles.question}>
+          <h2>Answer Question</h2>
+          <p>Author: {author}</p>
+          <form className={styles.options} onSubmit={handleSubmit}>
+            <button onClick={handleSelection} name='optionOne'>
+              {optionOne.text}
+            </button>
+            <button onClick={handleSelection} name='optionTwo'>
+              {optionTwo.text}
+            </button>
+            <button>Submit</button>
+          </form>
+        </div>
+      );
+    }
+  };
+
+  return <div>{handleQuestion()}</div>;
 };
 
 export default Question;

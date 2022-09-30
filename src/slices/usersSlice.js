@@ -1,22 +1,18 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import * as DataAPI from "../_DATA";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { _getUsers } from "../utils/_DATA";
 
-// INITIAL STATE
 const initialState = {
-  users: {},
+  users: [],
   usersStatus: "idle",
 };
 
-// USERS SLICE
 const usersSlice = createSlice({
   name: "users",
   initialState,
-  reducers: {
-    getUsers: (state) => state.users,
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(fetchUsers.pending, (state) => {
+      .addCase(fetchUsers.pending, (state, { payload }) => {
         state.usersStatus = "loading";
       })
       .addCase(fetchUsers.fulfilled, (state, { payload }) => {
@@ -26,18 +22,14 @@ const usersSlice = createSlice({
   },
 });
 
-// THUNK Action
 export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
   try {
-    const response = await DataAPI._getUsers();
+    const response = await _getUsers();
     return response;
   } catch (error) {
     return error.message;
   }
 });
-
-// USERS SLICE Exports
-export const { getUsers } = usersSlice.actions;
 
 export const usersSelector = (state) => state.users;
 

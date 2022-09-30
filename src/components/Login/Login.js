@@ -1,10 +1,10 @@
 // Requires AUTHED_USER and QUESTIONS from store
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { usersSelector } from "../../features/usersSlice";
-import { setAuthedUser } from "../../features/authedUserSlice";
-import "./login.css";
+import { fetchUsers, usersSelector } from "../../slices/usersSlice";
+import { setAuthedUser } from "../../slices/authedUserSlice";
+import styles from "./login.module.css";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -12,6 +12,10 @@ const Login = () => {
 
   const { users } = useSelector(usersSelector);
   const [selectedUser, setSelectedUser] = useState();
+
+  useEffect(() => {
+    dispatch(fetchUsers());
+  }, [dispatch]);
 
   const usersList = () => {
     return Object.values(users).map((user) => {
@@ -30,7 +34,7 @@ const Login = () => {
 
     dispatch(setAuthedUser(selectedUser));
 
-    navigate("/dashboard");
+    navigate("/");
   };
 
   return (

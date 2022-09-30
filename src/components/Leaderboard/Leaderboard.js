@@ -1,7 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
-import { questionsSelector } from "../../features/questionsSlice";
-import { usersSelector } from "../../features/usersSlice";
-import Layout from "../Layout/Layout";
+import { questionsSelector } from "../../slices/questionsSlice";
+import { usersSelector } from "../../slices/usersSlice";
+
+import styles from "./leaderboard.module.css";
 
 const Leaderboard = () => {
   const dispatch = useDispatch();
@@ -9,7 +10,7 @@ const Leaderboard = () => {
   const { questions } = useSelector(questionsSelector);
 
   return (
-    <Layout>
+    <div className={styles.leaderboard}>
       <div>Leaderboard</div>
       <table>
         <thead>
@@ -33,7 +34,7 @@ const Leaderboard = () => {
           })}
         </tbody>
       </table>
-    </Layout>
+    </div>
   );
 };
 

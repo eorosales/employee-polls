@@ -4,6 +4,7 @@ import styles from "./questionCard.module.css";
 
 const QuestionCard = ({ question }) => {
   const { id, author, timestamp } = question;
+
   const formattedDate = () => {
     const created = new Date(timestamp);
     const month = created.toLocaleDateString("en-us", { month: "long" });

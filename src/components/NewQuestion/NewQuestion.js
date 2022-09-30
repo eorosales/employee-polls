@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import Layout from "../Layout/Layout";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { saveNewQuestion } from "../../features/questionsSlice";
-import { getAuthedUser } from "../../features/authedUserSlice";
+import { saveNewQuestion } from "../../slices/questionsSlice";
+import { authedUserSelector } from "../../slices/authedUserSlice";
+import styles from "./newQuestion.module.css";
 
 const NewQuestion = () => {
   const dispatch = useDispatch();
-  const authedUser = useSelector(getAuthedUser);
+  const navigate = useNavigate();
+  const authedUser = useSelector(authedUserSelector);
 
   const [optionOneText, setOptionOneText] = useState("");
   const [optionTwoText, setOptionTwoText] = useState("");
@@ -22,31 +24,32 @@ const NewQuestion = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const newQuestion = {
+    const question = {
       optionOneText,
       optionTwoText,
-      author: authedUser,
+      author: authedUser.authedUser,
     };
 
-    dispatch(saveNewQuestion(newQuestion));
+    dispatch(saveNewQuestion(question));
+
+    setOptionOneText("");
+    setOptionTwoText("");
   };
 
   return (
-    <Layout>
-      <div className='new-question'>
-        <div className='new-question__container'>
-          <h2>Would You Rather</h2>
-          <p>Create Your Own Poll</p>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor='optionOne'>Optione One</label>
-            <input type='text' onChange={handleOptionOne} />
-            <label htmlFor='optionOne'>Optione Two</label>
-            <input type='text' onChange={handleOptionTwo} />
-            <button>Create Question</button>
-          </form>
-        </div>
+    <div className={styles.newQuestion}>
+      <div className={styles.container}>
+        <h2>Would You Rather</h2>
+        <p>Create Your Own Poll</p>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor='optionOne'>Optione One</label>
+          <input type='text' onChange={handleOptionOne} />
+          <label htmlFor='optionOne'>Optione Two</label>
+          <input type='text' onChange={handleOptionTwo} />
+          <button>Create Question</button>
+        </form>
       </div>
-    </Layout>
+    </div>
   );
 };
 

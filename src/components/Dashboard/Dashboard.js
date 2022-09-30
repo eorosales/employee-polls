@@ -1,82 +1,73 @@
-// Requires AUTHED_USER and QUESTIONS from store
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { getAuthedUser } from "../../features/authedUserSlice";
-import { questionsSelector } from "../../features/questionsSlice";
-import { usersSelector } from "../../features/usersSlice";
-import LoadingBar, { showLoading, hideLoading } from "react-redux-loading-bar";
-import Layout from "../Layout/Layout";
-import QuestionCard from "../QuestionCard/QuestionCard";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchQuestions, questionsSelector } from "../../slices/questionsSlice";
+import { usersSelector } from "../../slices/usersSlice";
+import { authedUserSelector } from "../../slices/authedUserSlice";
+
 import styles from "./dashboard.module.css";
+import LoadingBar, { showLoading } from "react-redux-loading-bar";
+import QuestionCard from "../QuestionCard/QuestionCard";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const authedUser = useSelector(getAuthedUser);
+  // Component state
+  const [answeredQuestions, setAnsweredQuestions] = useState([]);
+  const [unansweredQuestions, setUnansweredQuestions] = useState([]);
+  // State from store
+  const { authedUser } = useSelector(authedUserSelector);
   const { questions, questionsStatus } = useSelector(questionsSelector);
-  const { users, usersStatus } = useSelector(usersSelector);
+  const { users } = useSelector(usersSelector);
 
   useEffect(() => {
-    if (usersStatus !== "success" || usersStatus) {
+    if (questionsStatus === "idle") {
+      dispatch(fetchQuestions());
       dispatch(showLoading());
     }
-  });
-
-  const handleAnsweredQuestions = () => {
-    if (usersStatus === "success" && authedUser !== "") {
-      return Object.keys(users).map((user) => {
-        return (
-          user === authedUser &&
-          Object.keys(users[user].answers).map((answerId) => {
-            return (
-              <li key={answerId}>
-                <QuestionCard question={questions[answerId]} />
-              </li>
-            );
-          })
-        );
-      });
+    if (questionsStatus == "success") {
+      handleQuestions();
     }
-  };
+  }, [questionsStatus, dispatch]);
 
-  const handleUnansweredQuestions = () => {
-    if (usersStatus === "success" && questionsStatus === "success") {
-      return Object.keys(questions)
-        .filter((question) => {
-          const usersAnsweredQuestions = Object.keys(users[authedUser].answers);
-          return usersAnsweredQuestions.indexOf(question) === -1; // -1 means 'no match found'
-        })
-        .map((unanswered) => {
-          return (
-            <li key={unanswered}>
-              <QuestionCard question={questions[unanswered]} />
-            </li>
-          );
-        });
-    }
+  // Set component state for answered questions and unanswered questions
+  const handleQuestions = () => {
+    const answered = Object.keys(users[authedUser].answers);
+    const unanswered = Object.keys(questions).filter(
+      (question) => answered.indexOf(question) === -1
+    );
+
+    setAnsweredQuestions(answered);
+    setUnansweredQuestions(unanswered);
   };
 
   return (
-    <Layout>
-      {questionsStatus !== "success" && usersStatus !== "success" ? (
-        <LoadingBar />
+    <div>
+      {questionsStatus !== "success" ? (
+        <LoadingBar updateTime={0} />
       ) : (
         <div className={styles.dashboard}>
-          <h2>Questions</h2>
-          <section>
-            <h3>Answered Questions</h3>
-            <ul className={styles.questionsList}>
-              {handleAnsweredQuestions()}
-            </ul>
-          </section>
-          <section>
-            <h3>New Questions</h3>
-            <ul className={styles.questionsList}>
-              {handleUnansweredQuestions()}
-            </ul>
-          </section>
+          <h2>Answered Questions</h2>
+          <ul className={styles.questionsList}>
+            {answeredQuestions.map((id) => {
+              return (
+                <li key={id}>
+                  <QuestionCard question={questions[id]} />
+                </li>
+              );
+            })}
+          </ul>
+          <h2>New Questions</h2>
+          <ul className={styles.questionsList}>
+            {unansweredQuestions.map((id) => {
+              return (
+                <li key={id}>
+                  <QuestionCard question={questions[id]} />
+                </li>
+              );
+            })}
+          </ul>
         </div>
       )}
-    </Layout>
+    </div>
   );
 };
 

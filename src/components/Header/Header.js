@@ -1,12 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getAuthedUser, logoutUser } from "../../features/authedUserSlice";
+import { authedUserSelector, logoutUser } from "../../slices/authedUserSlice";
 import styles from "./header.module.css";
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const authedUser = useSelector(getAuthedUser);
+  const { authedUser } = useSelector(authedUserSelector);
 
   const logout = () => {
     dispatch(logoutUser());
@@ -16,7 +16,7 @@ const Header = () => {
   return (
     <header className={styles.header}>
       <nav className={styles.nav}>
-        <Link className={styles.navLink} to='/dashboard'>
+        <Link className={styles.navLink} to='/'>
           Home
         </Link>
         <Link className={styles.navLink} to='/leaderboard'>

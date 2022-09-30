@@ -1,0 +1,49 @@
+.newQuestion {
+  width: 100%;
+}
+
+.newQuestion .container {
+  height: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.container form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.container h2 {
+  font-size: 2.4rem;
+}
+
+.container p {
+  font-size: 1.4rem;
+  position: relative;
+  top: -60px;
+}
+
+.container form label {
+  font-size: 1.2rem;
+  margin: 0.2em 0;
+}
+
+.container form input {
+  padding: 0.2em;
+}
+
+.newQuestion .container form input:first-of-type {
+  margin-bottom: 1em;
+}
+
+.newQuestion .container form input:focus-within {
+  outline: 5px solid #f2b138;
+  border-radius: 0.2em;
+}
+
+.newQuestion .container form button {
+  margin: 2em;
+}

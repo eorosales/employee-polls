@@ -1,8 +1,12 @@
-import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
-import * as DataAPI from "../_DATA";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {
+  _getQuestions,
+  _saveQuestion,
+  _saveQuestionAnswer,
+} from "../utils/_DATA";
 
 const initialState = {
-  questions: {},
+  questions: [],
   questionsStatus: "idle",
 };
 
@@ -10,27 +14,30 @@ const questionsSlice = createSlice({
   name: "questions",
   initialState,
   reducers: {},
-  extraReducers(builder) {
+  extraReducers: (builder) => {
     builder
-      .addCase(fetchQuestions.pending, (state) => {
+      .addCase(fetchQuestions.pending, (state, { payload }) => {
         state.questionsStatus = "loading";
       })
       .addCase(fetchQuestions.fulfilled, (state, { payload }) => {
         state.questionsStatus = "success";
         state.questions = payload;
       })
+      .addCase(saveNewQuestion.pending, (state, { payload }) => {
+        state.questionsStatus = "loading";
+      })
       .addCase(saveNewQuestion.fulfilled, (state, { payload }) => {
         state.questions = { ...state.questions, [payload.id]: payload };
+        state.questionsStatus = "success";
       });
   },
 });
 
-// Thunk action
 export const fetchQuestions = createAsyncThunk(
   "questions/fetchQuestions",
   async () => {
     try {
-      const response = await DataAPI._getQuestions();
+      const response = await _getQuestions();
       return response;
     } catch (error) {
       return error.message;
@@ -42,7 +49,7 @@ export const saveNewQuestion = createAsyncThunk(
   "questions/saveNewQuestion",
   async (question) => {
     try {
-      const response = await DataAPI._saveQuestion(question);
+      const response = await _saveQuestion(question);
       return response;
     } catch (error) {
       return error.message;
@@ -50,7 +57,19 @@ export const saveNewQuestion = createAsyncThunk(
   }
 );
 
-export const { clearQuestions } = questionsSlice.actions;
+// export const saveQuestionAnswer = createAsyncThunk(
+//   "questions/saveQuestionAnswer",
+//   async (answer) => {
+//     try {
+//       const response = await _saveQuestionAnswer(answer);
+//       return response;
+//     } catch (error) {
+//       return error.message;
+//     }
+//   }
+// );
+
+export const { getQuestions, setQuestionsStatusIdle } = questionsSlice.actions;
 
 export const questionsSelector = (state) => state.questions;
 

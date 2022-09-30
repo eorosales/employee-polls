@@ -1,10 +1,9 @@
 header.header {
   background-color: #1f261f;
-  width: 100vw;
+  padding: 1em;
   color: #fff;
   display: flex;
   justify-content: space-between;
-  padding: 1em;
   font-family: "Fira Sans", sans-serif;
 }
 
@@ -17,6 +16,7 @@ header.header nav.nav {
 header.header nav.nav .navLink {
   text-decoration: none;
   color: #fff;
+  padding: 0.2em;
 }
 
 header.header nav.nav .navLink:hover {
