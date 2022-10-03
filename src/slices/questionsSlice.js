@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import {
   _getQuestions,
   _saveQuestion,
@@ -13,7 +13,12 @@ const initialState = {
 const questionsSlice = createSlice({
   name: "questions",
   initialState,
-  reducers: {},
+  reducers: {
+    updateVotes: (state, { payload }) => {
+      const { authedUser, qid, answer } = payload;
+      state.questions[qid][answer].votes.push(authedUser);
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchQuestions.pending, (state, { payload }) => {
@@ -28,6 +33,13 @@ const questionsSlice = createSlice({
       })
       .addCase(saveNewQuestion.fulfilled, (state, { payload }) => {
         state.questions = { ...state.questions, [payload.id]: payload };
+        state.questionsStatus = "success";
+      })
+      .addCase(saveQuestionAnswer.pending, (state, { payload }) => {
+        state.questionsStatus = "loading";
+      })
+
+      .addCase(saveQuestionAnswer.fulfilled, (state, { payload }) => {
         state.questionsStatus = "success";
       });
   },
@@ -57,19 +69,20 @@ export const saveNewQuestion = createAsyncThunk(
   }
 );
 
-// export const saveQuestionAnswer = createAsyncThunk(
-//   "questions/saveQuestionAnswer",
-//   async (answer) => {
-//     try {
-//       const response = await _saveQuestionAnswer(answer);
-//       return response;
-//     } catch (error) {
-//       return error.message;
-//     }
-//   }
-// );
+export const saveQuestionAnswer = createAsyncThunk(
+  "questions/saveQuestionAnswer",
+  async (answer) => {
+    try {
+      const response = await _saveQuestionAnswer(answer);
+      return response;
+    } catch (error) {
+      return error.message;
+    }
+  }
+);
 
-export const { getQuestions, setQuestionsStatusIdle } = questionsSlice.actions;
+export const { getQuestions, setQuestionsStatusIdle, updateVotes } =
+  questionsSlice.actions;
 
 export const questionsSelector = (state) => state.questions;
 

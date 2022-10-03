@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import { _getUsers } from "../utils/_DATA";
 
 const initialState = {
@@ -9,7 +9,16 @@ const initialState = {
 const usersSlice = createSlice({
   name: "users",
   initialState,
-  reducers: {},
+  reducers: {
+    updateUserVotes: (state, { payload }) => {
+      console.log(current(state.users[payload.authedUser]));
+      console.log(
+        Object.assign(state.users[payload.authedUser].answers, {
+          [payload.qid]: payload.authedUser,
+        })
+      );
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchUsers.pending, (state, { payload }) => {
@@ -30,6 +39,8 @@ export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
     return error.message;
   }
 });
+
+export const { updateUserVotes } = usersSlice.actions;
 
 export const usersSelector = (state) => state.users;
 

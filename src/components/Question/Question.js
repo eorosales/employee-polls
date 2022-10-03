@@ -5,7 +5,9 @@ import { authedUserSelector } from "../../slices/authedUserSlice";
 import {
   questionsSelector,
   saveQuestionAnswer,
+  updateVotes,
 } from "../../slices/questionsSlice";
+import { updateUserVotes } from "../../slices/usersSlice";
 import styles from "./question.module.css";
 
 const Question = () => {
@@ -24,12 +26,11 @@ const Question = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const answer = {
-      authedUser,
-      qid: id,
-      answer: selectedOption,
-    };
-    // dispatch(saveQuestionAnswer(answer));
+    dispatch(
+      saveQuestionAnswer({ authedUser, qid: id, answer: selectedOption })
+    );
+    dispatch(updateVotes({ authedUser, qid: id, answer: selectedOption }));
+    dispatch(updateUserVotes({ authedUser, qid: id, answer: selectedOption }));
   };
 
   const handleQuestion = () => {

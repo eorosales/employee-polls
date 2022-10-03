@@ -38,12 +38,15 @@ const Login = () => {
   };
 
   return (
-    <div className='login'>
-      <div className='login__container'>
+    <div className={styles.login}>
+      <div className={styles.login__container}>
         <h3>LOGIN</h3>
         <p>Select your username.</p>
-        <form id='loginForm' className='login__form' onSubmit={handleSubmit}>
-          <div className='login__form__user-select'>
+        <form
+          id='loginForm'
+          className={styles.login__form}
+          onSubmit={handleSubmit}>
+          <div className={styles.login__form__userSelect}>
             <select
               id='users'
               name='users'
