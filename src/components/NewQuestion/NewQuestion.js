@@ -1,14 +1,19 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { saveNewQuestion } from "../../slices/questionsSlice";
+import {
+  questionsSelector,
+  saveNewQuestion,
+} from "../../slices/questionsSlice";
 import { authedUserSelector } from "../../slices/authedUserSlice";
+import { usersSelector, updateUserQuestions } from "../../slices/usersSlice";
 import styles from "./newQuestion.module.css";
 
 const NewQuestion = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
   const authedUser = useSelector(authedUserSelector);
+  const users = useSelector(usersSelector);
+  const questions = useSelector(questionsSelector);
 
   const [optionOneText, setOptionOneText] = useState("");
   const [optionTwoText, setOptionTwoText] = useState("");
@@ -31,6 +36,7 @@ const NewQuestion = () => {
     };
 
     dispatch(saveNewQuestion(question));
+    dispatch(updateUserQuestions({ authedUser, questions }));
 
     setOptionOneText("");
     setOptionTwoText("");

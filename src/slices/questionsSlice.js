@@ -28,7 +28,7 @@ const questionsSlice = createSlice({
         state.questionsStatus = "success";
         state.questions = payload;
       })
-      .addCase(saveNewQuestion.pending, (state, { payload }) => {
+      .addCase(saveNewQuestion.pending, (state, _) => {
         state.questionsStatus = "loading";
       })
       .addCase(saveNewQuestion.fulfilled, (state, { payload }) => {

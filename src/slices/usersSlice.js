@@ -18,6 +18,18 @@ const usersSlice = createSlice({
         })
       );
     },
+    updateUserQuestions: (state, { payload }) => {
+      const authedUsersQuestions = Object.keys(
+        payload.questions.questions
+      ).filter((key) => {
+        return (
+          payload.questions.questions[key].author ===
+          payload.authedUser.authedUser
+        );
+      });
+      state.users[payload.authedUser.authedUser].questions =
+        authedUsersQuestions;
+    },
   },
   extraReducers(builder) {
     builder
@@ -40,7 +52,7 @@ export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
   }
 });
 
-export const { updateUserVotes } = usersSlice.actions;
+export const { updateUserVotes, updateUserQuestions } = usersSlice.actions;
 
 export const usersSelector = (state) => state.users;
 

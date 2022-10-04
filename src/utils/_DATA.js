@@ -5,13 +5,11 @@ let users = {
     name: "Sarah Edo",
     avatarURL: null,
     answers: {
-      // questions answered by user and the answer chosen
       "8xf0y6ziyjabvozdd253nd": "optionOne",
       "6ni6ok3ym7mf1p33lnez": "optionOne",
       am8ehyc8byjqgar0jgpub9: "optionTwo",
       loxhs1bqm25b708cmbf3g: "optionTwo",
     },
-    // questions created by user
     questions: ["8xf0y6ziyjabvozdd253nd", "am8ehyc8byjqgar0jgpub9"],
   },
   tylermcginnis: {
