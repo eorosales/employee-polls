@@ -7,7 +7,7 @@ import {
   saveQuestionAnswer,
   updateVotes,
 } from "../../slices/questionsSlice";
-import { updateUserVotes } from "../../slices/usersSlice";
+import { updateUserVotes } from "../../slices/usersSlice/usersSlice";
 import styles from "./question.module.css";
 
 const Question = () => {
@@ -41,10 +41,16 @@ const Question = () => {
           <h2>Answer Question</h2>
           <p>Author: {author}</p>
           <form className={styles.options} onSubmit={handleSubmit}>
-            <button onClick={handleSelection} name='optionOne'>
+            <button
+              onClick={handleSelection}
+              name='optionOne'
+              data-testid='option-one'>
               {optionOne.text}
             </button>
-            <button onClick={handleSelection} name='optionTwo'>
+            <button
+              onClick={handleSelection}
+              name='optionTwo'
+              data-testid='optioneTwo'>
               {optionTwo.text}
             </button>
             <button>Submit</button>

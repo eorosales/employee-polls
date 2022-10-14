@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authedUserReducer from "../slices/authedUserSlice";
-import questionsReducer from "../slices/questionsSlice";
-import usersReducer from "../slices/usersSlice";
+import authedUserReducer from "../slices/authedUserSlice/authedUserSlice";
+import questionsReducer from "../slices/questionsSlice/questionsSlice";
+import usersReducer from "../slices/usersSlice/usersSlice";
 import { loadingBarReducer } from "react-redux-loading-bar";
 export const store = configureStore({
   reducer: {

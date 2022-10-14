@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
-import { _getUsers } from "../utils/_DATA";
+import { _getUsers } from "../../utils/_DATA";
 
 const initialState = {
   users: [],
@@ -11,12 +11,9 @@ const usersSlice = createSlice({
   initialState,
   reducers: {
     updateUserVotes: (state, { payload }) => {
-      console.log(current(state.users[payload.authedUser]));
-      console.log(
-        Object.assign(state.users[payload.authedUser].answers, {
-          [payload.qid]: payload.authedUser,
-        })
-      );
+      Object.assign(state.users[payload.authedUser].answers, {
+        [payload.qid]: payload.authedUser,
+      });
     },
     updateUserQuestions: (state, { payload }) => {
       const authedUsersQuestions = Object.keys(

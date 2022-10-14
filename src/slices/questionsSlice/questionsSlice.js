@@ -3,7 +3,7 @@ import {
   _getQuestions,
   _saveQuestion,
   _saveQuestionAnswer,
-} from "../utils/_DATA";
+} from "../../utils/_DATA";
 
 const initialState = {
   questions: [],
@@ -26,6 +26,11 @@ const questionsSlice = createSlice({
       })
       .addCase(fetchQuestions.fulfilled, (state, { payload }) => {
         state.questionsStatus = "success";
+
+        const sortedQuestionsId = Object.keys(payload).sort((a, b) => {
+          return payload[b].timestamp - payload[a].timestamp;
+        });
+
         state.questions = payload;
       })
       .addCase(saveNewQuestion.pending, (state, _) => {
