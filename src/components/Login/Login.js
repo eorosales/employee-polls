@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchUsers, usersSelector } from "../../slices/usersSlice";
-import { setAuthedUser } from "../../slices/authedUserSlice";
+import { fetchUsers, usersSelector } from "../../slices/usersSlice/usersSlice";
+import { setAuthedUser } from "../../slices/authedUserSlice/authedUserSlice";
 import styles from "./login.module.css";
 
 const Login = () => {
