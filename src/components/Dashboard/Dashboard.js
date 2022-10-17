@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchQuestions, questionsSelector } from "../../slices/questionsSlice";
-import { usersSelector } from "../../slices/usersSlice";
-import { authedUserSelector } from "../../slices/authedUserSlice";
+import {
+  fetchQuestions,
+  questionsSelector,
+} from "../../slices/questionsSlice/questionsSlice";
+import { usersSelector } from "../../slices/usersSlice/usersSlice";
+import { authedUserSelector } from "../../slices/authedUserSlice/authedUserSlice";
 
 import styles from "./dashboard.module.css";
 import LoadingBar, { showLoading } from "react-redux-loading-bar";
@@ -23,7 +26,7 @@ const Dashboard = () => {
       dispatch(fetchQuestions());
       dispatch(showLoading());
     }
-    if (questionsStatus == "success") {
+    if (questionsStatus === "success") {
       handleQuestions();
     }
   }, [questionsStatus, dispatch]);

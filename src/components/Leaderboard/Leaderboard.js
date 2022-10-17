@@ -1,12 +1,9 @@
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { questionsSelector } from "../../slices/questionsSlice";
-import { fetchUsers, usersSelector } from "../../slices/usersSlice";
+import { useSelector } from "react-redux";
 
 import styles from "./leaderboard.module.css";
 
 const Leaderboard = () => {
-  const dispatch = useDispatch();
   const { users } = useSelector((state) => state.users);
 
   console.log(users);

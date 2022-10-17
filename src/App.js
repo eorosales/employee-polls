@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { authedUserSelector } from "./slices/authedUserSlice";
+import { authedUserSelector } from "./slices/authedUserSlice/authedUserSlice";
 
 import Layout from "./components/Layout/Layout";
 import Login from "./components/Login/Login";

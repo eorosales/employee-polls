@@ -25,7 +25,7 @@ const Login = () => {
 
   const handleUserSelect = (e) => {
     e.preventDefault();
-
+    console.log(e);
     setSelectedUser(e.target.value);
   };
 

@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { authedUserSelector } from "../../slices/authedUserSlice";
+import { authedUserSelector } from "../../slices/authedUserSlice/authedUserSlice";
 import {
   questionsSelector,
   saveQuestionAnswer,
   updateVotes,
-} from "../../slices/questionsSlice";
+} from "../../slices/questionsSlice/questionsSlice";
 import { updateUserVotes } from "../../slices/usersSlice/usersSlice";
 import styles from "./question.module.css";
 

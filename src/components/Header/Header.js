@@ -1,6 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { authedUserSelector, logoutUser } from "../../slices/authedUserSlice";
+import {
+  authedUserSelector,
+  logoutUser,
+} from "../../slices/authedUserSlice/authedUserSlice";
 import styles from "./header.module.css";
 
 const Header = () => {

@@ -3,9 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   questionsSelector,
   saveNewQuestion,
-} from "../../slices/questionsSlice";
-import { authedUserSelector } from "../../slices/authedUserSlice";
-import { usersSelector, updateUserQuestions } from "../../slices/usersSlice";
+} from "../../slices/questionsSlice/questionsSlice";
+import { authedUserSelector } from "../../slices/authedUserSlice/authedUserSlice";
+import {
+  usersSelector,
+  updateUserQuestions,
+} from "../../slices/usersSlice/usersSlice";
 import styles from "./newQuestion.module.css";
 
 const NewQuestion = () => {
