@@ -27,24 +27,19 @@ const Dashboard = () => {
       dispatch(showLoading());
     }
     if (questionsStatus === "success") {
-      handleQuestions();
-    }
-  }, [questionsStatus, dispatch]);
-
-  // Set component state for answered questions and unanswered questions
-  const handleQuestions = () => {
-    const answered = Object.keys(users[authedUser].answers).sort((a, b) => {
-      return questions[b].timestamp - questions[a].timestamp;
-    });
-    const unanswered = Object.keys(questions)
-      .filter((question) => answered.indexOf(question) === -1)
-      .sort((a, b) => {
+      const answered = Object.keys(users[authedUser].answers).sort((a, b) => {
         return questions[b].timestamp - questions[a].timestamp;
       });
+      const unanswered = Object.keys(questions)
+        .filter((question) => answered.indexOf(question) === -1)
+        .sort((a, b) => {
+          return questions[b].timestamp - questions[a].timestamp;
+        });
 
-    setAnsweredQuestions(answered);
-    setUnansweredQuestions(unanswered);
-  };
+      setAnsweredQuestions(answered);
+      setUnansweredQuestions(unanswered);
+    }
+  }, [dispatch, questions, users, authedUser, questionsStatus]);
 
   return (
     <div>
