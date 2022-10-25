@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   _getQuestions,
   _saveQuestion,
@@ -16,7 +16,7 @@ const questionsSlice = createSlice({
   reducers: {
     updateVotes: (state, { payload }) => {
       const { authedUser, qid, answer } = payload;
-      state.questions[qid][answer].votes.push(authedUser);
+      state.questions[qid][answer].votes.push([authedUser]);
     },
   },
   extraReducers: (builder) => {
@@ -26,11 +26,6 @@ const questionsSlice = createSlice({
       })
       .addCase(fetchQuestions.fulfilled, (state, { payload }) => {
         state.questionsStatus = "success";
-
-        const sortedQuestionsId = Object.keys(payload).sort((a, b) => {
-          return payload[b].timestamp - payload[a].timestamp;
-        });
-
         state.questions = payload;
       })
       .addCase(saveNewQuestion.pending, (state, _) => {
@@ -40,11 +35,11 @@ const questionsSlice = createSlice({
         state.questions = { ...state.questions, [payload.id]: payload };
         state.questionsStatus = "success";
       })
-      .addCase(saveQuestionAnswer.pending, (state, { payload }) => {
+      .addCase(saveQuestionAnswer.pending, (state) => {
         state.questionsStatus = "loading";
       })
 
-      .addCase(saveQuestionAnswer.fulfilled, (state, { payload }) => {
+      .addCase(saveQuestionAnswer.fulfilled, (state) => {
         state.questionsStatus = "success";
       });
   },

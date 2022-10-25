@@ -33,10 +33,14 @@ const Dashboard = () => {
 
   // Set component state for answered questions and unanswered questions
   const handleQuestions = () => {
-    const answered = Object.keys(users[authedUser].answers);
-    const unanswered = Object.keys(questions).filter(
-      (question) => answered.indexOf(question) === -1
-    );
+    const answered = Object.keys(users[authedUser].answers).sort((a, b) => {
+      return questions[b].timestamp - questions[a].timestamp;
+    });
+    const unanswered = Object.keys(questions)
+      .filter((question) => answered.indexOf(question) === -1)
+      .sort((a, b) => {
+        return questions[b].timestamp - questions[a].timestamp;
+      });
 
     setAnsweredQuestions(answered);
     setUnansweredQuestions(unanswered);
