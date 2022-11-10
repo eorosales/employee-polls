@@ -1,5 +1,4 @@
 import questionsReducer, {
-  updateVotes,
   fetchQuestions,
   saveNewQuestion,
   saveQuestionAnswer,
@@ -42,34 +41,6 @@ describe("Questions Slice", () => {
         type: saveNewQuestion.pending.type,
       });
       expect(actual).toEqual({ questions: [], questionsStatus: "loading" });
-    });
-    it("sets questionsStatus to 'success' and adds a new question to questions", () => {
-      const questions = {
-        qid001: {
-          id: "qid001",
-          author: "testuser001",
-        },
-      };
-      const actual = questionsReducer(
-        { questions, questionsStatus: "idle" },
-        {
-          type: saveNewQuestion.fulfilled.type,
-          payload: { id: "qid003", author: "testuser003" },
-        }
-      );
-      expect(actual).toEqual({
-        questions: {
-          qid001: {
-            id: "qid001",
-            author: "testuser001",
-          },
-          qid003: {
-            id: "qid003",
-            author: "testuser003",
-          },
-        },
-        questionsStatus: "success",
-      });
     });
   });
 

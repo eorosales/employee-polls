@@ -1,39 +1,51 @@
-import { Link, useNavigate } from "react-router-dom";
+import styles from "./header.module.css";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import {
   authedUserSelector,
-  logoutUser,
+  logout,
 } from "../../slices/authedUserSlice/authedUserSlice";
-import styles from "./header.module.css";
+import { usersSelector } from "../../slices/usersSlice/usersSlice";
 
-const Header = () => {
+const Header = ({ children }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { authedUser } = useSelector(authedUserSelector);
+  const { users } = useSelector(usersSelector);
 
-  const logout = () => {
-    dispatch(logoutUser());
-    navigate("/login");
+  const avatar = () => {
+    const firstName = users[authedUser].name.slice(" ")[0];
+    const lastName = users[authedUser].name.slice(" ")[1];
+    return (
+      <img
+        src={`https://ui-avatars.com/api/?rounded=true&size=32&name=${firstName}+${lastName}`}
+        alt='avatar'
+      />
+    );
+  };
+
+  const logoutUser = () => {
+    dispatch(logout());
+    navigate("/");
   };
 
   return (
-    <header className={styles.header}>
-      <nav className={styles.nav}>
-        <Link className={styles.navLink} to='/'>
-          Home
-        </Link>
-        <Link className={styles.navLink} to='/leaderboard'>
-          Leaderboard
-        </Link>
-        <Link className={styles.navLink} to='/new-question'>
-          New
-        </Link>
-      </nav>
-      <div className={styles.activeUser}>
-        <span>{authedUser}</span>
-        <button onClick={logout}>Logout</button>
-      </div>
-    </header>
+    <>
+      <header className={styles.header}>
+        <nav className={styles.header__nav}>
+          <Link to='/'>Dashboard</Link>
+          <Link to='/leaderboard'>Leaderboard</Link>
+          <Link to='/add'>New</Link>
+        </nav>
+        <div className={styles.header__userInfo}>
+          <span>{avatar()}</span>
+          <span>{authedUser}</span>
+          <button onClick={logoutUser}>Logout</button>
+        </div>
+      </header>
+      <main>{children}</main>
+    </>
   );
 };
 

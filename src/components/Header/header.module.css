@@ -1,48 +1,54 @@
-header.header {
-  background-color: #1f261f;
-  padding: 1em;
-  color: #fff;
+.header {
+  width: 100vw;
   display: flex;
   justify-content: space-between;
-  font-family: "Fira Sans", sans-serif;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #ccc;
 }
 
-header.header nav.nav {
+.header__nav a {
+  margin-right: 1rem;
+  color: #000;
+}
+
+.header__nav a:hover {
+  color: #000;
+  border-bottom: 3px solid darkslategrey;
+}
+
+.header__nav a:last-child {
+  margin-right: 0;
+}
+
+.header__userInfo {
   display: flex;
+  width: 280px;
   justify-content: space-around;
-  gap: 10px;
+  align-items: center;
 }
 
-header.header nav.nav .navLink {
-  text-decoration: none;
-  color: #fff;
-  padding: 0.2em;
-}
-
-header.header nav.nav .navLink:hover {
-  border-bottom: 0.2em solid #f2b138;
-  margin-top: 0;
-  padding-bottom: 0;
-}
-
-header.header .activeUser {
-  display: inline-block;
-}
-
-header.header .activeUser > * {
+.header__userInfo button {
   margin: 0 1rem;
 }
 
-.activeUser button {
-  border: none;
-  width: 7rem;
-  border-radius: 0.8rem;
-  padding: 2px 0;
-  background-color: #fff;
-  color: #1f261f;
+.header__userInfo button {
+  border: 2px solid #fff;
+  border-radius: 0.6em;
+  padding: 0.2em 1.2em;
+  background: darkslategrey;
+  color: #fff;
 }
 
-.activeUser button:hover {
-  background-color: #f2b138;
+.header__userInfo button:hover {
+  background-color: #fff;
+  border: 2px solid darkslategrey;
+  color: darkslategray;
   cursor: pointer;
+}
+
+.header__userInfo button:disabled {
+  pointer-events: none;
+  background-color: none;
+  border: none;
 }

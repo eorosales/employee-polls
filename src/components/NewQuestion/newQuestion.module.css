@@ -1,9 +1,11 @@
 .newQuestion {
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
+  padding: var(--container-padding);
+  padding-block-start: var(--container-padding-block-start);
 }
 
 .newQuestion .container {
-  height: 480px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -16,19 +18,23 @@
   justify-content: space-around;
 }
 
-.container h2 {
-  font-size: 2.4rem;
+.container h3 {
+  font: var(--page-header);
 }
 
-.container p {
-  font-size: 1.4rem;
-  position: relative;
-  top: -60px;
+.container h4 {
+  font: var(--section-header);
+  margin-top: -0.5em;
+}
+
+.container form {
+  padding: 4rem;
 }
 
 .container form label {
-  font-size: 1.2rem;
-  margin: 0.2em 0;
+  font: var(--subsection-header);
+  text-align: center;
+  margin-bottom: 0.4rem;
 }
 
 .container form input {
@@ -46,4 +52,23 @@
 
 .newQuestion .container form button {
   margin: 2em;
+}
+
+.newQuestion .container form button {
+  padding-inline: 1.4rem;
+  border: 2px solid darkslategray;
+  border-radius: 0.6em;
+  background: #fff;
+}
+
+.newQuestion .container form button:hover {
+  background-color: darkslategray;
+  color: #fff;
+  cursor: pointer;
+}
+
+.newQuestion .container form button:disabled {
+  pointer-events: none;
+  background-color: none;
+  border: none;
 }

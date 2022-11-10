@@ -1,7 +1,4 @@
-import authedUserReducer, {
-  setAuthedUser,
-  logoutUser,
-} from "./authedUserSlice";
+import authedUserReducer, { login, logout } from "./authedUserSlice";
 
 describe("AuthedUser Slice", () => {
   const initialState = { authedUser: "" };
@@ -13,12 +10,12 @@ describe("AuthedUser Slice", () => {
   });
 
   it("sets authedUser", () => {
-    const actual = authedUserReducer(initialState, setAuthedUser("testuser"));
+    const actual = authedUserReducer(initialState, login("testuser"));
     expect(actual.authedUser).toEqual("testuser");
   });
 
   it("logs out authedUser", () => {
-    const actual = authedUserReducer({ authedUser: "testuser" }, logoutUser());
+    const actual = authedUserReducer({ authedUser: "testuser" }, logout());
     expect(actual.authedUser).toEqual("");
   });
 });

@@ -1,68 +1,56 @@
-// Requires AUTHED_USER and QUESTIONS from store
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchUsers, usersSelector } from "../../slices/usersSlice/usersSlice";
-import { setAuthedUser } from "../../slices/authedUserSlice/authedUserSlice";
+import { usersSelector, fetchUsers } from "../../slices/usersSlice/usersSlice";
+import { login } from "../../slices/authedUserSlice/authedUserSlice";
 import styles from "./login.module.css";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { users } = useSelector(usersSelector);
+  const { users, usersStatus } = useSelector(usersSelector);
   const [selectedUser, setSelectedUser] = useState();
 
   useEffect(() => {
-    dispatch(fetchUsers());
-  }, [dispatch]);
+    if (usersStatus === "idle") {
+      dispatch(fetchUsers());
+    }
+  }, [dispatch, usersStatus]);
 
   const usersList = () => {
-    return Object.values(users).map((user) => {
-      return <option key={user.id}>{user.id}</option>;
+    return Object.keys(users).map((user) => {
+      return <option key={user}>{user}</option>;
     });
   };
 
   const handleUserSelect = (e) => {
     e.preventDefault();
-
     setSelectedUser(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    dispatch(setAuthedUser(selectedUser));
-
+    dispatch(login(selectedUser));
     navigate("/");
   };
 
   return (
-    <div className={styles.login}>
-      <div className={styles.login__container}>
-        <h3>LOGIN</h3>
-        <p>Select your username.</p>
-        <form
-          id='loginForm'
-          className={styles.login__form}
-          onSubmit={handleSubmit}>
-          <div className={styles.login__form__userSelect}>
-            <select
-              id='users'
-              name='users'
-              defaultValue=''
-              onChange={handleUserSelect}
-              required>
-              <option disabled value=''>
-                Select User
-              </option>
-              {usersList()}
-            </select>
-          </div>
-          <button>Submit</button>
+    <>
+      <div className={styles.login}>
+        <h3>Login</h3>
+        <p>Select username to continue</p>
+        <form onSubmit={handleSubmit}>
+          <select defaultValue='' onChange={handleUserSelect} required>
+            <option disabled value=''>
+              Select User
+            </option>
+            {usersList()}
+          </select>
+          <button type='submit'>Login</button>
         </form>
       </div>
-    </div>
+    </>
   );
 };
 

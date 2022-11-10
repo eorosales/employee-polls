@@ -8,17 +8,20 @@ const authedUserSlice = createSlice({
   name: "authedUser",
   initialState,
   reducers: {
-    setAuthedUser: (state, { payload }) => {
+    login: (state, { payload }) => {
       state.authedUser = payload;
     },
-    logoutUser: (state) => {
+    logout: (state) => {
       state.authedUser = "";
     },
   },
 });
 
-export const { setAuthedUser, logoutUser } = authedUserSlice.actions;
+// Actions
+export const { login, logout } = authedUserSlice.actions;
 
+// Selector
 export const authedUserSelector = (state) => state.authedUser;
 
+// Export reducer
 export default authedUserSlice.reducer;

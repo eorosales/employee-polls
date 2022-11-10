@@ -16,23 +16,22 @@ const questionsSlice = createSlice({
   reducers: {
     updateVotes: (state, { payload }) => {
       const { authedUser, qid, answer } = payload;
-      state.questions[qid][answer].votes.push([authedUser]);
+      state.questions[qid][answer].votes.push(authedUser);
     },
   },
-  extraReducers: (builder) => {
+  extraReducers(builder) {
     builder
-      .addCase(fetchQuestions.pending, (state, { payload }) => {
+      .addCase(fetchQuestions.pending, (state) => {
         state.questionsStatus = "loading";
       })
       .addCase(fetchQuestions.fulfilled, (state, { payload }) => {
-        state.questionsStatus = "success";
         state.questions = payload;
+        state.questionsStatus = "success";
       })
-      .addCase(saveNewQuestion.pending, (state, _) => {
+      .addCase(saveNewQuestion.pending, (state, { payload }) => {
         state.questionsStatus = "loading";
       })
       .addCase(saveNewQuestion.fulfilled, (state, { payload }) => {
-        state.questions = { ...state.questions, [payload.id]: payload };
         state.questionsStatus = "success";
       })
       .addCase(saveQuestionAnswer.pending, (state) => {
@@ -81,9 +80,11 @@ export const saveQuestionAnswer = createAsyncThunk(
   }
 );
 
-export const { getQuestions, setQuestionsStatusIdle, updateVotes } =
-  questionsSlice.actions;
+// Actions
+export const { updateVotes } = questionsSlice.actions;
 
+// Selector
 export const questionsSelector = (state) => state.questions;
 
+// Export reducer
 export default questionsSlice.reducer;

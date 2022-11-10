@@ -1,43 +1,49 @@
 .dashboard {
-  width: 80vw;
-  padding: 2em;
-  margin: 0 auto;
-}
-
-.dashboard > section {
-  padding: 2em;
-  box-shadow: #1f261f 1px 1px 5px -1px;
-  border-radius: 0.8em;
-}
-
-.dashboard > section:first-of-type {
-  margin-bottom: 2em;
-}
-
-.dashboard h2 {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 1em;
-}
-
-.questionsList {
-  width: auto;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding: 4em;
-  list-style-type: none;
-  list-style: none;
-  gap: 20px;
-  border: 1px solid #000;
-  border-radius: 15px;
-}
-
-.questionsList li {
-  flex: 0 1 18em;
-}
-
-.loadingBar {
+  height: 100vh;
   width: 100vw;
+  padding: var(--container-padding);
+  padding-block-start: var(--container-padding-block-start);
+}
+
+.dashboard__container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  gap: 2rem;
+}
+
+.dashboard__container > h3 {
+  font: var(--page-header);
+}
+
+.dashboard__container h4 {
+  font: var(--section-header);
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+
+.dashboard__container section {
+  padding: 2rem;
+}
+
+.dashboard__container ul {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  padding: 2.6em;
+  gap: 2em;
+}
+
+.dashboard__container ul li {
+  list-style: none;
+  border: 1px solid #ccc;
+  border-radius: 1.2rem;
+  flex: 1 0 12.5rem;
+}
+
+.dashboard__container ul li:hover {
+  background-color: #00a6a4;
+  transition: 250ms ease-in-out;
+  border: 1px solid #fff;
 }

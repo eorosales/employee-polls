@@ -1,30 +1,27 @@
+import styles from "./dashboard.module.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { authedUserSelector } from "../../slices/authedUserSlice/authedUserSlice";
 import {
   fetchQuestions,
   questionsSelector,
 } from "../../slices/questionsSlice/questionsSlice";
+import QuestionCard from "../../components/QuestionCard/QuestionCard";
 import { usersSelector } from "../../slices/usersSlice/usersSlice";
-import { authedUserSelector } from "../../slices/authedUserSlice/authedUserSlice";
-
-import styles from "./dashboard.module.css";
-import LoadingBar, { showLoading } from "react-redux-loading-bar";
-import QuestionCard from "../QuestionCard/QuestionCard";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  // Component state
+
   const [answeredQuestions, setAnsweredQuestions] = useState([]);
   const [unansweredQuestions, setUnansweredQuestions] = useState([]);
-  // State from store
+
   const { authedUser } = useSelector(authedUserSelector);
-  const { questions, questionsStatus } = useSelector(questionsSelector);
   const { users } = useSelector(usersSelector);
+  const { questions, questionsStatus } = useSelector(questionsSelector);
 
   useEffect(() => {
-    if (questionsStatus === "idle") {
+    if (questionsStatus === "idle" || questionsStatus === "loading") {
       dispatch(fetchQuestions());
-      dispatch(showLoading());
     }
     if (questionsStatus === "success") {
       const answered = Object.keys(users[authedUser].answers).sort((a, b) => {
@@ -39,37 +36,46 @@ const Dashboard = () => {
       setAnsweredQuestions(answered);
       setUnansweredQuestions(unanswered);
     }
-  }, [dispatch, questions, users, authedUser, questionsStatus]);
+  }, [dispatch, questionsStatus, questions, authedUser, users]);
 
   return (
-    <div>
-      {questionsStatus !== "success" ? (
-        <LoadingBar updateTime={0} />
-      ) : (
-        <div className={styles.dashboard}>
-          <h2>Answered Questions</h2>
-          <ul className={styles.questionsList}>
-            {answeredQuestions.map((id) => {
-              return (
-                <li key={id}>
-                  <QuestionCard question={questions[id]} />
-                </li>
-              );
-            })}
-          </ul>
-          <h2>New Questions</h2>
-          <ul className={styles.questionsList}>
-            {unansweredQuestions.map((id) => {
-              return (
-                <li key={id}>
-                  <QuestionCard question={questions[id]} />
-                </li>
-              );
-            })}
-          </ul>
+    <>
+      <div className={styles.dashboard}>
+        <div className={styles.dashboard__container}>
+          <h3>Dashboard</h3>
+          {questionsStatus !== "success" ? (
+            <p>Loading</p>
+          ) : (
+            <>
+              <section>
+                <h4>Answered Polls</h4>
+                <ul>
+                  {answeredQuestions.map((id) => (
+                    <li key={id}>
+                      <QuestionCard question={questions[id]} />
+                    </li>
+                  ))}
+                </ul>
+              </section>
+              <section>
+                <h4>New Polls</h4>
+                <ul>
+                  {unansweredQuestions.length === 0 ? (
+                    <p>You have no new questions to answer.</p>
+                  ) : (
+                    unansweredQuestions.map((id) => (
+                      <li key={id}>
+                        <QuestionCard question={questions[id]} />
+                      </li>
+                    ))
+                  )}
+                </ul>
+              </section>
+            </>
+          )}
         </div>
-      )}
-    </div>
+      </div>
+    </>
   );
 };
 

@@ -1,9 +1,28 @@
 .question {
-  height: 100%;
-  margin: 5em 10em;
+  height: 100vh;
+  padding: var(--container-padding);
+  padding-block-start: var(--container-padding-block-start);
 }
-.question > h3 {
-  font-family: Verdana, Geneva, Tahoma, sans-serifm sans-serif;
+
+.question__container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  gap: 2rem;
+}
+
+.question h3 {
+  font: var(--page-header);
+}
+
+.question h4 {
+  font: var(--section-header);
+}
+
+.question__container img {
+  width: 120px;
+  margin: 0 auto;
 }
 
 .question form {
@@ -11,7 +30,6 @@
   flex-flow: row wrap;
   justify-content: space-around;
   align-items: center;
-  margin: 0 auto;
   width: 100%;
   gap: 20px;
 }
@@ -20,8 +38,11 @@
   position: relative;
   display: flex;
   flex-flow: column;
-  flex: 1 0 45%;
-  border: 1px solid #ddd;
+  flex: 1 1 45%;
+}
+
+.question form p label {
+  font: var(--subsection-header);
 }
 
 .question form p > input,
@@ -32,13 +53,14 @@
 .question form p > input {
   background-color: #fff;
   border: none;
-  border-top: 1px solid #ddd;
+  border: 1px solid #ddd;
 }
 
 .question form p > input:hover {
   cursor: pointer;
   color: #fff;
-  background-color: darkslategray;
+  background-color: var(--hover-color);
+  border-radius: 1.5em;
 }
 
 .question form p > input:active {
@@ -49,9 +71,11 @@
 .question .selected {
   background-color: darkslategrey;
   color: #fff;
+  border-radius: 1.5em;
 }
 
 .question form button {
+  margin-top: 3rem;
   flex: 0 0 10em;
   border: 2px solid darkslategray;
   border-radius: 0.6em;

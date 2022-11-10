@@ -1,47 +1,33 @@
 .login {
-  width: 100vw;
   height: 100vh;
+  width: 100vw;
+  padding: var(--container-padding);
+  padding-block-start: var(--container-padding-block-start);
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 0 auto;
-}
-
-.login__container {
-  background: #fff;
-  background-size: cover;
-  border-radius: 1em;
-  padding: 4em;
-  width: 15em;
-  height: 10em;
-  text-align: center;
-  box-shadow: #ccc 4px 4px 10px 2px;
-}
-
-.login__container h3 {
-  margin-top: -1.4em;
-  font-size: 1.8rem;
-  color: #005070;
-  font-family: "Fira Sans", sans-serif;
-}
-
-.login__container p {
-  margin: 0.4em 0;
-}
-
-.login__form {
-  display: flex;
-  height: 100%;
   flex-direction: column;
-  justify-content: space-around;
 }
 
-.login__form__userSelect {
-  position: relative;
+.login h3 {
+  font: var(--page-header);
 }
 
-.login__form__userSelect:after {
+.login p {
+  font: var(--section-header);
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+
+.login form {
+  height: 20rem;
+  padding: 2rem;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-evenly;
+}
+
+.login form select:after {
   position: absolute;
   content: "";
   top: 14px;
@@ -52,18 +38,16 @@
   border-color: #fff transparent transparent transparent;
 }
 
-.login__form select {
+.login form select {
   border: none;
   padding: 0.4em 2.6em;
   border-radius: 0.5em;
   box-shadow: 1px 1px 2px 0;
 }
 
-.login__form select-items {
-  color: red;
-}
-
-.login__form button {
+.login form button {
+  width: 6rem;
+  margin: 0 auto;
   font-family: "Fira Sans", sans-serif;
   color: green;
   background-color: white;

@@ -1,35 +1,18 @@
 a {
   text-decoration: none;
-  color: #1f261f;
+  color: #000;
+  font-family: sans-serif;
+}
+
+a:hover {
+  color: #fff;
 }
 
 .questionCard {
-  padding: 2em;
-  text-decoration: none;
-  background-color: #d9c0a3;
-  border-radius: 0.8em;
-  box-shadow: 3px 3px 5px -1px;
+  width: auto;
+  height: fit-content;
 }
 
-.questionCard:hover {
-  box-shadow: none;
-  position: relative;
-  top: 3px;
-  left: 3px;
-  background-color: #ddd;
-  background-color: #5e7358;
-  color: #fff;
-  transition: background-color 50ms ease-in-out;
-}
-
-.questionCard input {
-  border: none;
-  background: none;
-  color: green;
-  padding: 0;
-}
-
-.questionCard input:hover {
-  font-weight: 700;
-  cursor: pointer;
+.questionCard h3 {
+  font-size: 1.4rem;
 }
