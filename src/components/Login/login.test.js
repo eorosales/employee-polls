@@ -5,7 +5,18 @@ import { store } from "../../app/store";
 import Login from "./Login";
 
 describe("Login component", () => {
-  it("exists in the document", () => {
+  it("matches snapshot", () => {
+    expect(
+      render(
+        <Provider store={store}>
+          <Router>
+            <Login />
+          </Router>
+        </Provider>
+      )
+    ).toMatchSnapshot();
+  });
+  it("exists in the docaument", () => {
     render(
       <Provider store={store}>
         <Router>

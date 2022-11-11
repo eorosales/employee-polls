@@ -3,7 +3,7 @@ import { avatar } from "../../utils/helper";
 import styles from "./leaderboard.module.css";
 
 const Leaderboard = () => {
-  const { users, usersStatus } = useSelector((state) => state.users);
+  const { users } = useSelector((state) => state.users);
 
   // Create table on the page
   const instantiateTable = () =>
@@ -38,7 +38,6 @@ const Leaderboard = () => {
       <div className={styles.leaderboard__container}>
         <h3>Leaderboard</h3>
         <h4>See Where You Stand</h4>
-
         <table>
           <thead>
             <tr>
@@ -47,7 +46,7 @@ const Leaderboard = () => {
               <th>Created</th>
             </tr>
           </thead>
-          <tbody>{usersStatus === "success" && instantiateTable()}</tbody>
+          <tbody>{instantiateTable()}</tbody>
         </table>
       </div>
     </div>
