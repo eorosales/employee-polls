@@ -1,17 +1,17 @@
+import styles from "./login.module.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { usersSelector, fetchUsers } from "../../slices/usersSlice/usersSlice";
 import { login } from "../../slices/authedUserSlice/authedUserSlice";
-import styles from "./login.module.css";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const { users, usersStatus } = useSelector(usersSelector);
   const [selectedUser, setSelectedUser] = useState();
 
+  // Fetch all users and display them in dropdown when successful
   useEffect(() => {
     if (usersStatus === "idle") {
       dispatch(fetchUsers());

@@ -13,6 +13,7 @@ const Question = () => {
   const { questions } = useSelector(questionsSelector);
   const { authedUser } = useSelector(authedUserSelector);
 
+  // Determine if question is answered
   const isAnswered = useCallback(() => {
     const authedUserAnswers = [
       ...Object.values(questions[id].optionOne.votes),
@@ -25,6 +26,7 @@ const Question = () => {
     isAnswered();
   }, [isAnswered, questions]);
 
+  // Display appropriate component dependent on whether it was answered or not
   return (
     <>
       <div className={styles.question}>

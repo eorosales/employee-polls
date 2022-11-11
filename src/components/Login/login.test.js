@@ -5,7 +5,7 @@ import { store } from "../../app/store";
 import Login from "./Login";
 
 describe("Login component", () => {
-  test("exists in the document", () => {
+  it("exists in the document", () => {
     render(
       <Provider store={store}>
         <Router>
@@ -17,7 +17,7 @@ describe("Login component", () => {
     expect(userInputEl).toBeInTheDocument();
   });
 
-  test("shows user select dropdown", () => {
+  it("shows user select dropdown", () => {
     render(
       <Provider store={store}>
         <Router>
@@ -29,7 +29,7 @@ describe("Login component", () => {
     expect(userSelectEl).toBeInTheDocument();
   });
 
-  test("user select dropdown changes on user select", () => {
+  it("user select dropdown changes on user select", () => {
     render(
       <Provider store={store}>
         <Router>

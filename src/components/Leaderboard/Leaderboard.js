@@ -5,8 +5,10 @@ import styles from "./leaderboard.module.css";
 const Leaderboard = () => {
   const { users, usersStatus } = useSelector((state) => state.users);
 
+  // Create table on the page
   const instantiateTable = () =>
     Object.keys(users)
+      // Sort questions from newest on top to oldest on the bottom
       .sort((a, b) => {
         const usersA =
           Object.values(users[b].answers).length +

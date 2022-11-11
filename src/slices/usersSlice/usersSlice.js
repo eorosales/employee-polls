@@ -26,7 +26,7 @@ const usersSlice = createSlice({
         state.users = payload;
       })
       .addCase(saveNewQuestion.pending, (state, { payload }) => {
-        state.questionsStatus = "loading";
+        state.usersStatus = "loading";
       })
       .addCase(saveNewQuestion.fulfilled, (state, { payload }) => {
         state.users[payload.author].questions = [

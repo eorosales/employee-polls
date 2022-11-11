@@ -1,4 +1,4 @@
-import usersReducer, { fetchUsers } from "./usersSlice";
+import usersReducer, { saveNewQuestion, fetchUsers } from "./usersSlice";
 
 describe("Users Slice", () => {
   const initialState = {

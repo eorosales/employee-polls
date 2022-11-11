@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import styles from "./unansweredQuestionForm.module.css";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { authedUserSelector } from "../../slices/authedUserSlice/authedUserSlice";
@@ -8,7 +9,6 @@ import {
   updateVotes,
 } from "../../slices/questionsSlice/questionsSlice";
 import { avatar } from "../../utils/helper";
-import styles from "./unansweredQuestionForm.module.css";
 
 const UnansweredQuestionForm = ({ question }) => {
   const dispatch = useDispatch();

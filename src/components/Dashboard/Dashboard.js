@@ -2,12 +2,12 @@ import styles from "./dashboard.module.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { authedUserSelector } from "../../slices/authedUserSlice/authedUserSlice";
+import { usersSelector } from "../../slices/usersSlice/usersSlice";
 import {
   fetchQuestions,
   questionsSelector,
 } from "../../slices/questionsSlice/questionsSlice";
 import QuestionCard from "../../components/QuestionCard/QuestionCard";
-import { usersSelector } from "../../slices/usersSlice/usersSlice";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -19,6 +19,7 @@ const Dashboard = () => {
   const { users } = useSelector(usersSelector);
   const { questions, questionsStatus } = useSelector(questionsSelector);
 
+  // Fetch all questions from store and display when successful
   useEffect(() => {
     if (questionsStatus === "idle" || questionsStatus === "loading") {
       dispatch(fetchQuestions());

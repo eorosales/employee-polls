@@ -1,7 +1,6 @@
-import React from "react";
+import styles from "./questionCard.module.css";
 import { Link } from "react-router-dom";
 import { formattedDate } from "../../utils/helper";
-import styles from "./questionCard.module.css";
 
 const QuestionCard = ({ question }) => {
   const { id, author, timestamp } = question;
