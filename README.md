@@ -36,5 +36,6 @@ Tests are located in the following directories:
 - employee-polls/src/authedUserSlice/authedUserSlice.test.js
 - employee-polls/src/questionsSlice/questionsSlice.test.js
 - employee-polls/src/usersSlice/usersSlice.test.js
+- employee-polls/src/utils/data.test.js
 - employee-polls/src/components/Login/login.test.js
   - contains /_snapshots_ directory
