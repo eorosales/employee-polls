@@ -14,6 +14,7 @@ const Dashboard = () => {
 
   const [answeredQuestions, setAnsweredQuestions] = useState([]);
   const [unansweredQuestions, setUnansweredQuestions] = useState([]);
+  const [toggle, setToggle] = useState(false);
 
   const { authedUser } = useSelector(authedUserSelector);
   const { users } = useSelector(usersSelector);
@@ -46,33 +47,38 @@ const Dashboard = () => {
           <h3>Dashboard</h3>
           {questionsStatus !== "success" ? (
             <p>Loading</p>
-          ) : (
-            <>
-              <section>
+          ) : toggle === true ? (
+            <section>
+              <div className={styles.section__header}>
                 <h4>Answered Polls</h4>
-                <ul>
-                  {answeredQuestions.map((id) => (
+                <button onClick={() => setToggle(!toggle)}>Toggle Polls</button>
+              </div>
+              <ul>
+                {answeredQuestions.map((id) => (
+                  <li key={id}>
+                    <QuestionCard question={questions[id]} />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : (
+            <section>
+              <div className={styles.section__header}>
+                <h4>New Polls</h4>
+                <button onClick={() => setToggle(!toggle)}>Toggle Polls</button>
+              </div>
+              <ul>
+                {unansweredQuestions.length === 0 ? (
+                  <p>You have no new questions to answer.</p>
+                ) : (
+                  unansweredQuestions.map((id) => (
                     <li key={id}>
                       <QuestionCard question={questions[id]} />
                     </li>
-                  ))}
-                </ul>
-              </section>
-              <section>
-                <h4>New Polls</h4>
-                <ul>
-                  {unansweredQuestions.length === 0 ? (
-                    <p>You have no new questions to answer.</p>
-                  ) : (
-                    unansweredQuestions.map((id) => (
-                      <li key={id}>
-                        <QuestionCard question={questions[id]} />
-                      </li>
-                    ))
-                  )}
-                </ul>
-              </section>
-            </>
+                  ))
+                )}
+              </ul>
+            </section>
           )}
         </div>
       </div>

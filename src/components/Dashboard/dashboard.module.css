@@ -17,14 +17,35 @@
   font: var(--page-header);
 }
 
-.dashboard__container h4 {
+.dashboard__container section .section__header h4 {
   font: var(--section-header);
   text-align: left;
-  border-bottom: 1px solid #ccc;
 }
 
 .dashboard__container section {
   padding: 2rem;
+}
+
+.dashboard__container section .section__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+}
+
+.dashboard__container section .section__header button {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 0.4em 0.6em;
+  border-radius: 0.6rem;
+  margin-bottom: 1.2rem;
+}
+
+.dashboard__container section .section__header button:hover {
+  background-color: darkslategray;
+  color: #fff;
+  transition: 50ms ease-in-out;
+  cursor: pointer;
 }
 
 .dashboard__container ul {
