@@ -14,7 +14,7 @@ const UnansweredQuestionForm = ({ question }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { id } = useParams();
+  const { question_id } = useParams();
   const { authedUser } = useSelector(authedUserSelector);
   const [selectedOption, setSelectedOption] = useState("");
 
@@ -26,21 +26,21 @@ const UnansweredQuestionForm = ({ question }) => {
     dispatch(
       saveQuestionAnswer({
         authedUser,
-        qid: id,
+        qid: question_id,
         answer: selectedOption,
       })
     );
     dispatch(
       updateVotes({
         authedUser,
-        qid: id,
+        qid: question_id,
         answer: selectedOption,
       })
     );
     dispatch(
       updateUserVotes({
         authedUser,
-        qid: id,
+        qid: question_id,
         answer: selectedOption,
       })
     );

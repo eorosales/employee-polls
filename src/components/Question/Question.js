@@ -9,18 +9,18 @@ import AnsweredQuestion from "../AnsweredQuestion/AnsweredQuestion";
 import UnansweredQuestionForm from "../UnansweredQuestionForm/UnansweredQuestionForm";
 
 const Question = () => {
-  const { id } = useParams();
+  const { question_id } = useParams();
   const { questions } = useSelector(questionsSelector);
   const { authedUser } = useSelector(authedUserSelector);
 
   // Determine if question is answered
   const isAnswered = useCallback(() => {
     const authedUserAnswers = [
-      ...Object.values(questions[id].optionOne.votes),
-      ...Object.values(questions[id].optionTwo.votes),
+      ...Object.values(questions[question_id].optionOne.votes),
+      ...Object.values(questions[question_id].optionTwo.votes),
     ];
     return authedUserAnswers.includes(authedUser);
-  }, [authedUser, id, questions]);
+  }, [authedUser, question_id, questions]);
 
   useEffect(() => {
     isAnswered();
@@ -34,7 +34,7 @@ const Question = () => {
           {isAnswered() === true ? (
             <AnsweredQuestion />
           ) : (
-            <UnansweredQuestionForm question={questions[id]} />
+            <UnansweredQuestionForm question={questions[question_id]} />
           )}
         </div>
       </div>
