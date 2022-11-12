@@ -26,7 +26,7 @@ function App() {
           <Header>
             <Routes>
               <Route path='/' element={<Dashboard />} />
-              <Route path='/question/:id' element={<Question />} />
+              <Route path='/questions/:question_id' element={<Question />} />
               <Route path='/leaderboard' element={<Leaderboard />} />
               <Route path='/add' element={<NewQuestion />} />
               <Route path='*' element={<NotFoundPage />} />
