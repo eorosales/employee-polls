@@ -1,7 +1,7 @@
 import styles from "./unansweredQuestionForm.module.css";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { authedUserSelector } from "../../slices/authedUserSlice/authedUserSlice";
 import { updateUserVotes } from "../../slices/usersSlice/usersSlice";
 import {
@@ -12,7 +12,6 @@ import { avatar } from "../../utils/helper";
 
 const UnansweredQuestionForm = ({ question }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const { question_id } = useParams();
   const { authedUser } = useSelector(authedUserSelector);
@@ -44,7 +43,6 @@ const UnansweredQuestionForm = ({ question }) => {
         answer: selectedOption,
       })
     );
-    navigate("/");
   };
 
   const handleSelection = (e) => {
