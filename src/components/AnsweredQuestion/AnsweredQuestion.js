@@ -27,11 +27,12 @@ const AnsweredQuestion = () => {
           <p>{`${questions[question_id].optionOne.votes.length} Total Vote(s)`}</p>
           {questions[question_id].optionOne.votes.includes(authedUser)}
           <span className={styles.answeredQuestion__details}>
-            {`${
+            {`${(
               (questions[question_id].optionOne.votes.length /
-                Object.keys(users).length) *
+                (questions[question_id].optionOne.votes.length +
+                  questions[question_id].optionTwo.votes.length)) *
               100
-            }% of users voted for option one.`}
+            ).toFixed(0)}% of users voted for option one.`}
           </span>
         </div>
         <div
@@ -45,11 +46,12 @@ const AnsweredQuestion = () => {
           <p>{`${questions[question_id].optionTwo.votes.length} Total Vote(s)`}</p>
           {questions[question_id].optionTwo.votes.includes(authedUser)}
           <span className={styles.answeredQuestion__details}>
-            {`${
+            {`${(
               (questions[question_id].optionTwo.votes.length /
-                Object.keys(users).length) *
+                (questions[question_id].optionOne.votes.length +
+                  questions[question_id].optionTwo.votes.length)) *
               100
-            }% of users voted for option two.`}
+            ).toFixed(0)}% of users voted for option two.`}
           </span>
         </div>
       </div>
