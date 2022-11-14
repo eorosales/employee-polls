@@ -1,14 +1,20 @@
 import styles from "./login.module.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { usersSelector, fetchUsers } from "../../slices/usersSlice/usersSlice";
-import { login } from "../../slices/authedUserSlice/authedUserSlice";
+import {
+  login,
+  authedUserSelector,
+} from "../../slices/authedUserSlice/authedUserSlice";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { state } = useLocation();
   const { users, usersStatus } = useSelector(usersSelector);
+  const { authenticated } = useSelector(authedUserSelector);
   const [selectedUser, setSelectedUser] = useState();
 
   // Fetch all users and display them in dropdown when successful
@@ -32,7 +38,8 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(login(selectedUser));
-    navigate("/");
+
+    authenticated && navigate(state?.path || "/");
   };
 
   return (

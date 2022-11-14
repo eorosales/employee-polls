@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { authedUserSelector } from "./slices/authedUserSlice/authedUserSlice";
 
@@ -12,28 +12,57 @@ import Leaderboard from "./components/Leaderboard/Leaderboard";
 import NewQuestion from "./components/NewQuestion/NewQuestion";
 import NotFoundPage from "./components/NotFoundPage/NotFoundPage";
 
-function App() {
-  const { authedUser } = useSelector(authedUserSelector);
+const RequireAuth = ({ children }) => {
+  const { authenticated } = useSelector(authedUserSelector);
+  const location = useLocation();
+  return authenticated === true ? (
+    <Header>{children}</Header>
+  ) : (
+    <Navigate to='/login' replace state={{ path: location.pathname }} />
+  );
+};
 
+// questions[question_id] is reuturning undefined, as a result, redirect to 404
+
+function App() {
   return (
     <div className='App'>
-      {authedUser === "" ? (
-        <>
-          <Login />
-        </>
-      ) : (
-        <>
-          <Header>
-            <Routes>
-              <Route path='/' element={<Dashboard />} />
-              <Route path='/questions/:question_id' element={<Question />} />
-              <Route path='/leaderboard' element={<Leaderboard />} />
-              <Route path='/add' element={<NewQuestion />} />
-              <Route path='*' element={<NotFoundPage />} />
-            </Routes>
-          </Header>
-        </>
-      )}
+      <Routes>
+        <Route
+          path='/'
+          element={
+            <RequireAuth>
+              <Dashboard />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path='/questions/:question_id'
+          element={
+            <RequireAuth>
+              <Question />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path='/leaderboard'
+          element={
+            <RequireAuth>
+              <Leaderboard />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path='/add'
+          element={
+            <RequireAuth>
+              <NewQuestion />
+            </RequireAuth>
+          }
+        />
+        <Route path='/login' element={<Login />} />
+        <Route path='/*' element={<NotFoundPage />} />
+      </Routes>
     </div>
   );
 }

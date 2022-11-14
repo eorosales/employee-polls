@@ -1,0 +1,34 @@
+.errorPage {
+  height: 100vh;
+  width: 100vw;
+  padding: var(--container-padding);
+  padding-block-start: var(--container-padding-block-start);
+}
+
+.errorPage .errorPage__container {
+  height: 100%;
+  width: 60%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  gap: 2rem;
+}
+
+.errorPage .errorPage__container button {
+  width: 10rem;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 0.4em 0.6em;
+  border-radius: 0.6rem;
+}
+
+.errorPage .errorPage__container button:hover {
+  background-color: #00a6a4;
+  transition: 50ms ease-in-out;
+  border: 1px solid #fff;
+  cursor: pointer;
+  color: #fff;
+}

@@ -1,7 +1,7 @@
 import styles from "./question.module.css";
 import { useCallback, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
 import { authedUserSelector } from "../../slices/authedUserSlice/authedUserSlice";
 import { questionsSelector } from "../../slices/questionsSlice/questionsSlice";
 
@@ -11,10 +11,14 @@ import UnansweredQuestionForm from "../UnansweredQuestionForm/UnansweredQuestion
 const Question = () => {
   const { question_id } = useParams();
   const { questions } = useSelector(questionsSelector);
-  const { authedUser } = useSelector(authedUserSelector);
+  const { authedUser, authenticated } = useSelector(authedUserSelector);
 
   // Determine if question is answered
   const isAnswered = useCallback(() => {
+    if (questions[question_id] === undefined) {
+      return <Navigate to='*' replace />;
+    }
+
     const authedUserAnswers = [
       ...Object.values(questions[question_id].optionOne.votes),
       ...Object.values(questions[question_id].optionTwo.votes),
@@ -24,9 +28,12 @@ const Question = () => {
 
   useEffect(() => {
     isAnswered();
-  }, [isAnswered, questions]);
+  }, [isAnswered, questions, authenticated]);
 
   // Display appropriate component dependent on whether it was answered or not
+  if (questions[question_id] === undefined) {
+    return <Navigate to='/*' replace />;
+  }
   return (
     <>
       <div className={styles.question}>

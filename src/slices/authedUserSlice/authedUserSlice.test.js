@@ -6,6 +6,7 @@ describe("AuthedUser Slice", () => {
   it("handles initial data", () => {
     expect(authedUserReducer(undefined, { type: "unknown" })).toEqual({
       authedUser: "",
+      authenticated: false,
     });
   });
 
